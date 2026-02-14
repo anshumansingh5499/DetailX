@@ -8,7 +8,7 @@ const Hero = () => {
 
       {/* Top Small Badge */}
       <div className="flex items-center gap-3 mb-8 md:mb-10">
-        <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center shadow-md p-2">
+        <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center shadow-md p-3">
           <img src={badgeIcon} alt="icon" className="w-5 h-5" />
         </div>
         <span className="bg-white px-4 md:px-5  py-3 rounded-full text-xs md:text-sm shadow-sm">
