@@ -1,5 +1,6 @@
 import heroCar from "../assets/hero-car.jpg";
 import badgeIcon from "../assets/car-icon.png";
+import heroCarmini from "../assets/mini-car.jpg";
 
 const Hero = () => {
   return (
@@ -31,7 +32,6 @@ const Hero = () => {
             Connect us
           </button>
         </a>
-      {/* HUGE BACKGROUND TEXT */}
       <h1
         className="
         md:absolute md:top-32 md:left-1/2 md:-translate-x-1/2
@@ -116,7 +116,7 @@ const Hero = () => {
           </div>
 
           <img
-            src="/src/assets/mini-car.jpg"
+            src={heroCarmini}
             alt="mini"
             className="w-full md:w-32 h-32 object-cover rounded-xl"
           />
