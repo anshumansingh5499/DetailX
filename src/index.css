@@ -1,17 +1,17 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"); 
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* body {
+body {
   font-family: "Bricolage Grotesque", sans-serif;
-} */
+} 
 
-/* .bricolage-grotesque {
+.bricolage-grotesque {
   font-family: "Bricolage Grotesque", sans-serif;
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
   font-variation-settings: "wdth" 100;
-} */
+}
