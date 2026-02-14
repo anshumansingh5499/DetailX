@@ -71,7 +71,7 @@ const ServicesAwwwards = () => {
       ref={containerRef}
       className={`relative h-[500vh] transition-colors duration-700 ${services[active].bg}`}
     >
-      <div className="sticky top-0 h-screen flex flex-col md:flex-row items-center px-6 md:px-24">
+      <div className="mt-6 sticky top-0 h-screen flex flex-col md:flex-row items-center px-6 md:px-24">
 
         {/* Progress Indicator */}
         <div className="hidden md:block absolute left-12 top-1/2 -translate-y-1/2 h-64 w-[2px] bg-white/20">
