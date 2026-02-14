@@ -14,7 +14,23 @@ const Hero = () => {
           Book a car wash with the INDIA largest car wash specialist
         </span>
       </div>
-
+ <a
+          href="tel:+917080216257"
+          className="flex items-center justify-center absolute top-60px -translate-y-1/2 right-[-32px] origin-center rotate-90"
+        >
+          <button
+            className="
+              px-3 py-2
+              text-xs font-semibold tracking-wide
+              border-orange-300/70
+              bg-red-500 text-white
+              hover:bg-orange-50 hover:text-red-600 hover:-translate-y-0.5
+              transition-all duration-300
+            "
+          >
+            Connect us
+          </button>
+        </a>
       {/* HUGE BACKGROUND TEXT */}
       <h1
         className="

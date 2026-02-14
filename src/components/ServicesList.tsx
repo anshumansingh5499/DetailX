@@ -1,188 +1,168 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+  AnimatePresence,
+} from "framer-motion";
+import { useRef, useState } from "react";
 
 import ceramic from "../assets/ceramic.jpg";
 import wheel1 from "../assets/detailing.jpg";
 import wheel2 from "../assets/washing.jpg";
 import detailing from "../assets/wheel.jpg";
-import carBg from "../assets/car-silhouette.jpg";
 
 const services = [
-  { title: "Express Exterior", image: ceramic },
-  { title: "Full Services Wash", image: wheel1 },
-  { title: "Auto Detailing", image: wheel2 },
-  { title: "Complete Wash", image: detailing },
-  { title: "Oil Changing", image: ceramic },
+  {
+    title: "Express Exterior",
+    desc: "A precision foam wash system engineered for hydrophobic brilliance and refined gloss retention.",
+    details:
+      "Our multi-stage exterior process ensures safe-contact washing, paint-safe drying techniques, and advanced surface protection that enhances longevity.",
+    image: ceramic,
+    bg: "bg-neutral-950",
+  },
+  {
+    title: "Full Service Wash",
+    desc: "Interior refinement meets exterior perfection.",
+    details:
+      "From deep vacuum extraction to dashboard conditioning, every detail is curated for a premium tactile experience.",
+    image: wheel1,
+    bg: "bg-neutral-900",
+  },
+  {
+    title: "Auto Detailing",
+    desc: "Luxury-grade paint correction & ceramic shielding.",
+    details:
+      "We restore clarity through precision polishing and protect surfaces with nano-ceramic coatings built for durability.",
+    image: wheel2,
+    bg: "bg-neutral-950",
+  },
+  {
+    title: "Complete Wash",
+    desc: "Total surface restoration for showroom depth.",
+    details:
+      "An immersive restoration package combining gloss amplification, interior rejuvenation, and surface sealing.",
+    image: detailing,
+    bg: "bg-neutral-900",
+  },
 ];
 
-const Counter = ({ value }: { value: number }) => {
-  const [count, setCount] = useState(0);
+const ServicesAwwwards = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
 
-  useEffect(() => {
-    let start = 0;
-    const duration = 2000;
-    const increment = value / (duration / 16);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
 
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= value) {
-        setCount(value);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const index = Math.min(
+      services.length - 1,
+      Math.floor(latest * services.length)
+    );
+    setActive(index);
+  });
 
-    return () => clearInterval(timer);
-  }, [value]);
-
-  return <span>{count.toLocaleString()}</span>;
-};
-
-const ServicesAccordion = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const progressHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section className="relative px-6 md:px-20 py-20 md:py-32 bg-white overflow-hidden">
+    <section
+      ref={containerRef}
+      className={`relative h-[500vh] transition-colors duration-700 ${services[active].bg}`}
+    >
+      <div className="sticky top-0 h-screen flex flex-col md:flex-row items-center px-6 md:px-24">
 
-      {/* Background Silhouette */}
-      <img
-        src={carBg}
-        alt="car silhouette"
-        className="hidden md:block absolute top-20 right-10 w-[900px] opacity-[0.05] pointer-events-none"
-      />
-
-      {/* Gradient Glow */}
-      <div className="absolute -top-40 -right-40 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-blue-100 blur-[120px] rounded-full"></div>
-
-      {/* Heading */}
-      <div className="mb-16 md:mb-20 relative z-10 text-center md:text-left">
-        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
-          Premium Automotive Services
-        </h2>
-        <p className="text-gray-500 mt-4 text-base md:text-lg max-w-xl mx-auto md:mx-0">
-          Engineered precision. Luxury finish. Elite performance care.
-        </p>
-      </div>
-
-      {/* MAIN CONTENT */}
-      <div className="flex flex-col md:flex-row gap-12 md:gap-20 relative z-10">
-
-        {/* LEFT SIDE LIST */}
-        <div className="w-full md:w-1/3 space-y-6 md:space-y-10">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              onClick={() => setActiveIndex(index)} // tap friendly
-              onMouseEnter={() => setActiveIndex(index)}
-              className="cursor-pointer group"
-            >
-              <h3
-                className={`text-xl md:text-2xl font-semibold transition-all duration-300 ${
-                  activeIndex === index
-                    ? "text-black"
-                    : "text-gray-400"
-                }`}
-              >
-                {service.title}
-              </h3>
-
-              <div
-                className={`h-[2px] bg-blue-600 mt-3 transition-all duration-500 ${
-                  activeIndex === index ? "w-16 md:w-20" : "w-0"
-                }`}
-              />
-            </div>
-          ))}
+        {/* Progress Indicator */}
+        <div className="hidden md:block absolute left-12 top-1/2 -translate-y-1/2 h-64 w-[2px] bg-white/20">
+          <motion.div
+            style={{ height: progressHeight }}
+            className="w-full bg-white origin-top"
+          />
         </div>
 
-        {/* RIGHT SIDE CARD */}
-        <div className="w-full md:w-2/3 relative h-[350px] md:h-[500px]">
-
+        {/* LEFT IMAGE */}
+        <div className="w-full md:w-1/2 h-[50vh] md:h-[70vh] relative rounded-[40px] overflow-hidden mb-12 md:mb-0">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, x: 80 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -80 }}
-              transition={{ duration: 0.5 }}
-              className="absolute w-full h-full"
+            <motion.img
+              key={active}
+              src={services[active].image}
+              initial={{ opacity: 0, filter: "blur(40px)" }}
+              animate={{ opacity: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, filter: "blur(40px)" }}
+              transition={{ duration: 1 }}
+              className="absolute inset-0 w-full h-full object-cover rounded-[40px]"
+            />
+          </AnimatePresence>
+        </div>
+
+        {/* RIGHT CONTENT */}
+        <div className="w-full md:w-1/2 text-white relative ml-8">
+
+          {/* Title with Character Reveal */}
+          <AnimatePresence mode="wait">
+            <motion.h2
+              key={active}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={{
+                visible: {
+                  transition: { staggerChildren: 0.03 },
+                },
+              }}
+              className="text-4xl md:text-6xl font-light tracking-tight"
             >
-              <div
-                className="relative w-full h-full rounded-2xl md:rounded-3xl
-                           backdrop-blur-xl bg-white/60
-                           border border-white/40
-                           shadow-[0_20px_60px_rgba(0,0,0,0.15)]
-                           overflow-hidden"
-              >
-                {/* Image */}
-                <div className="absolute inset-0">
-                  <img
-                    src={services[activeIndex].image}
-                    alt={services[activeIndex].title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black/30"></div>
-                </div>
-
-                {/* Content */}
-                <div className="absolute bottom-0 w-full p-6 md:p-10 text-white backdrop-blur-lg bg-black/40">
-                  <h3 className="text-xl md:text-3xl font-semibold">
-                    {services[activeIndex].title}
-                  </h3>
-                  <p className="mt-3 text-gray-200 text-sm md:text-base max-w-xl">
-                    Premium automotive care designed with cutting-edge
-                    detailing technology, delivering showroom-level shine and protection.
-                  </p>
-
-                  <motion.div
-                    layoutId="underline"
-                    className="h-[3px] bg-red-500 mt-4 md:mt-6 w-16 md:w-24"
-                  />
-                </div>
-              </div>
-            </motion.div>
+              {services[active].title.split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, y: 50 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.4 }}
+                  whileHover={{ scale: 1.1 }}
+                  className="inline-block cursor-default"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </motion.h2>
           </AnimatePresence>
 
-          {/* Depth Cards (Hidden on Mobile for Clean UI) */}
-          <div className="hidden md:block absolute top-6 left-6 w-full h-full rounded-3xl bg-gray-200/40 -z-10 scale-[0.97]" />
-          <div className="hidden md:block absolute top-12 left-12 w-full h-full rounded-3xl bg-gray-300/30 -z-20 scale-[0.94]" />
+          {/* Description */}
+          <motion.p
+            key={active + "desc"}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 0.8, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mt-6 md:mt-12 text-base md:text-lg leading-relaxed max-w-full md:max-w-xl"
+          >
+            {services[active].desc}
+          </motion.p>
 
+          {/* Extra Professional Content */}
+          <motion.p
+            key={active + "details"}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 0.7, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mt-4 md:mt-8 text-sm md:text-base max-w-full md:max-w-xl leading-relaxed"
+          >
+            {services[active].details}
+          </motion.p>
+
+          {/* CTA */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            className="mt-8 md:mt-16 px-6 md:px-8 py-3 md:py-4 border border-white/30 rounded-full text-sm md:text-base tracking-widest hover:bg-white hover:text-black transition duration-500"
+          >
+            DISCOVER MORE
+          </motion.button>
         </div>
       </div>
-
-      {/* Animated Stats */}
-      <div className="mt-24 md:mt-40 grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative z-10">
-        <div>
-          <h3 className="text-3xl md:text-4xl font-bold text-blue-600">
-            <Counter value={12025} />+
-          </h3>
-          <p className="text-gray-500 mt-2 text-sm md:text-base">
-            Cars Serviced
-          </p>
-        </div>
-
-        <div>
-          <h3 className="text-3xl md:text-4xl font-bold text-blue-600">
-            <Counter value={15} />
-          </h3>
-          <p className="text-gray-500 mt-2 text-sm md:text-base">
-            Years Experience
-          </p>
-        </div>
-
-        <div>
-          <h3 className="text-3xl md:text-4xl font-bold text-blue-600">
-            <Counter value={98} />%
-          </h3>
-          <p className="text-gray-500 mt-2 text-sm md:text-base">
-            Customer Satisfaction
-          </p>
-        </div>
-      </div>
-
     </section>
   );
 };
 
-export default ServicesAccordion;
+export default ServicesAwwwards;

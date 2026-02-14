@@ -13,22 +13,21 @@ const services = [
     image: wheel1,
   },
   {
-    title: "WHEEL\nSCRATCH\nREPAIRS",
+    title: "INTERIOR\nDETAILING",
     image: wheel2,
   },
   {
-    title: "DETAILING",
+    title: "EXTERIOR\nDETAILING",
     image: detailing,
   },
 ];
 
 const ServicesSection = () => {
   return (
-    <section className="px-12 py-24 bg-[#f3f3f3]">
+    <section className="px-6 md:px-12 py-24 bg-[#f3f3f3]">
       {/* Heading */}
-      <h2 className="text-5xl font-bold leading-tight max-w-5xl mb-16">
-        Expert Car Detailing: From Luxury Brands To Your Everyday Ride In
-        Sydney
+      <h2 className="text-4xl md:text-5xl font-bold leading-tight max-w-5xl mx-auto mb-16 text-center md:text-left">
+        Expert Car Detailing: From Luxury Brands To Your Everyday Ride In Sydney
       </h2>
 
       {/* Cards */}
@@ -36,25 +35,25 @@ const ServicesSection = () => {
         {services.map((service, index) => (
           <div
             key={index}
-            className="relative rounded-3xl overflow-hidden group cursor-pointer"
+            className="relative rounded-3xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-500"
           >
             {/* Image */}
             <img
               src={service.image}
               alt={service.title}
-              className="w-full h-[380px] object-cover transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-[380px] object-cover transition-transform duration-700 group-hover:scale-110"
             />
 
             {/* Dark Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-opacity duration-500 group-hover:opacity-80" />
 
             {/* Book Now Pill */}
-            <div className="absolute top-4 left-4 bg-blue-500 text-black text-sm px-4 py-1 rounded-full shadow-md">
+            <div className="absolute top-4 left-4 bg-blue-500 text-black text-sm px-4 py-1 rounded-full shadow-md transform opacity-0 group-hover:opacity-100 translate-y-0 group-hover:translate-y-1 transition-all duration-500">
               Book Now
             </div>
 
             {/* Title */}
-            <div className="absolute bottom-6 left-6 text-white font-bold text-2xl whitespace-pre-line leading-tight">
+            <div className="absolute bottom-6 left-6 text-white font-bold text-2xl md:text-3xl whitespace-pre-line leading-tight transition-transform duration-500 group-hover:translate-y-[-5px]">
               {service.title}
             </div>
           </div>
