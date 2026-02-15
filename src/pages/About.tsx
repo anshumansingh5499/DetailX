@@ -1,194 +1,153 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { FaTrophy, FaAward, FaMedal } from "react-icons/fa";
-import { SiBmw, SiAudi, SiTesla, SiMercedes } from "react-icons/si";
-
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import aboutImg from "../assets/hero-car.jpg";
 
-/* ================= COUNTER ================= */
-const Counter = ({ end }: { end: number }) => {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    let start = 0;
-    const duration = 2000;
-    const increment = end / (duration / 16);
-
-    const counter = setInterval(() => {
-      start += increment;
-      if (start >= end) {
-        setCount(end);
-        clearInterval(counter);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 16);
-
-    return () => clearInterval(counter);
-  }, [end]);
-
-  return <span>{count}</span>;
-};
-
-/* ================= ABOUT PAGE ================= */
 const About = () => {
   return (
     <>
       <Navbar />
 
-      {/* ================= HERO SECTION ================= */}
-      <section className="relative min-h-screen bg-black text-white flex items-center overflow-hidden">
+      {/* ================= CINEMATIC HERO ================= */}
+      <section className="relative min-h-screen bg-black text-white overflow-hidden flex items-center">
 
         {/* Background */}
-        <motion.img
+        <img
           src={aboutImg}
-          initial={{ scale: 1.2 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2 }}
-          className="absolute inset-0 w-full h-full object-cover opacity-30"
+          className="absolute inset-0 w-full h-full object-cover opacity-25 scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 grid md:grid-cols-2 gap-20 items-center">
 
-          {/* Left Text */}
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
-            <p className="uppercase tracking-widest text-gray-400 mb-6 text-sm">
-              Since 2015
-            </p>
-
-            <h1 className="text-6xl md:text-7xl font-bold leading-tight">
-              Where Precision
+          {/* Massive Typography */}
+          <div>
+            <h1 className="text-[80px] md:text-[120px] font-black leading-[0.9] tracking-tight">
+              WE
               <br />
-              Meets <span className="text-white/60">Perfection</span>
+              BUILD
+              <br />
+              <span className="text-orange-500">PERFECTION</span>
             </h1>
+          </div>
 
-            <p className="mt-8 text-gray-400 max-w-xl leading-relaxed">
-              We transform vehicles into rolling masterpieces using
-              cutting-edge detailing technology and meticulous craftsmanship.
+          {/* Statement */}
+          <div>
+            <p className="text-xl text-white/70 leading-relaxed max-w-lg">
+              Since 2015, we have engineered detailing excellence —
+              combining precision technology, advanced ceramic science,
+              and obsessive craftsmanship.
             </p>
 
-            <button className="mt-10 px-10 py-4 bg-white text-black rounded-full hover:bg-gray-200 transition">
-              Discover Our Work
-            </button>
-          </motion.div>
-
-          {/* Right Floating Stats */}
-          <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
-            className="grid grid-cols-2 gap-10 backdrop-blur-2xl bg-white/5 border border-white/10 rounded-3xl p-12 shadow-2xl"
-          >
-            <div>
-              <h3 className="text-4xl font-bold">
-                <Counter end={12000} />+
-              </h3>
-              <p className="text-gray-400 mt-2">Cars Detailed</p>
+            <div className="mt-10 border-l-2 border-orange-500 pl-6">
+              <p className="text-lg">
+                “Every surface matters. Every detail defines luxury.”
+              </p>
             </div>
+          </div>
 
-            <div>
-              <h3 className="text-4xl font-bold">
-                <Counter end={750} />+
-              </h3>
-              <p className="text-gray-400 mt-2">Happy Clients</p>
-            </div>
-
-            <div>
-              <h3 className="text-4xl font-bold">
-                <Counter end={10} />+
-              </h3>
-              <p className="text-gray-400 mt-2">Years Experience</p>
-            </div>
-
-            <div>
-              <h3 className="text-4xl font-bold">24/7</h3>
-              <p className="text-gray-400 mt-2">Premium Support</p>
-            </div>
-          </motion.div>
         </div>
       </section>
 
-      {/* ================= TIMELINE SECTION ================= */}
-      <section className="bg-black text-white py-32 px-6 md:px-12">
-        <div className="max-w-4xl mx-auto text-center mb-20">
-          <h2 className="text-5xl font-bold">Our Journey</h2>
-        </div>
+      {/* ================= WHAT MAKES US DIFFERENT ================= */}
+      <section className="bg-black text-white py-40 px-8 md:px-16">
 
-        <div className="relative border-l border-white/20 max-w-3xl mx-auto space-y-20">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center">
 
-          {[
-            { year: "2015", text: "Founded with a vision to redefine automotive detailing." },
-            { year: "2018", text: "Introduced nano-ceramic protection technology." },
-            { year: "2021", text: "Expanded to serve premium luxury brands." },
-            { year: "2024", text: "Recognized as industry leader in detailing excellence." },
-          ].map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7 }}
-              className="relative pl-12"
-            >
-              <div className="absolute left-[-8px] top-2 w-4 h-4 bg-white rounded-full" />
-              <h3 className="text-2xl font-bold">{item.year}</h3>
-              <p className="text-gray-400 mt-2">{item.text}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+          {/* Left Sticky Big Title */}
+          <div className="sticky top-32 self-start">
+            <h2 className="text-6xl font-bold leading-tight">
+              What Makes
+              <br />
+              Us Different
+            </h2>
+          </div>
 
-      {/* ================= AWARDS ================= */}
-      <section className="bg-neutral-950 text-white py-32 px-6 md:px-12 text-center">
-        <h2 className="text-5xl font-bold mb-20">Awards & Recognition</h2>
+          {/* Right Content */}
+          <div className="space-y-20">
 
-        <div className="flex flex-wrap justify-center gap-16">
-          {[FaTrophy, FaAward, FaMedal].map((Icon, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.15 }}
-              className="p-10 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10"
-            >
-              <Icon size={50} />
-            </motion.div>
-          ))}
-        </div>
-      </section>
+            {[
+              {
+                title: "Advanced Ceramic Engineering",
+                text: "We apply nano-ceramic coatings engineered for extreme hydrophobic protection and long-term paint preservation."
+              },
+              {
+                title: "Precision Paint Correction",
+                text: "Multi-stage polishing removes swirl marks, oxidation, and micro scratches to restore mirror-level clarity."
+              },
+              {
+                title: "Luxury Interior Restoration",
+                text: "From leather hydration to fabric deep extraction, we restore comfort and elegance."
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ x: 10 }}
+                className="border-b border-white/10 pb-10"
+              >
+                <h3 className="text-3xl font-semibold text-orange-500">
+                  {item.title}
+                </h3>
+                <p className="mt-4 text-white/60 leading-relaxed">
+                  {item.text}
+                </p>
+              </motion.div>
+            ))}
 
-      {/* ================= BRAND STRIP ================= */}
-      <section className="bg-black py-24 text-center">
-        <h3 className="text-3xl font-bold text-white mb-12">
-          Trusted By Premium Brands
-        </h3>
-
-        <div className="flex justify-center gap-20 text-gray-500">
-          {[SiBmw, SiAudi, SiTesla, SiMercedes].map((Icon, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.2 }}
-              className="hover:text-white transition"
-            >
-              <Icon size={70} />
-            </motion.div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* ================= FINAL CTA ================= */}
-      <section className="bg-gradient-to-b from-black to-neutral-900 text-white py-40 text-center">
-        <h2 className="text-5xl md:text-6xl font-bold">
-          Experience Detailing Excellence
+      {/* ================= FLOATING STATS SECTION ================= */}
+      <section className="relative bg-neutral-950 text-white py-40 px-8 md:px-16 overflow-hidden">
+
+        <div className="max-w-7xl mx-auto relative">
+
+          <h2 className="text-7xl font-black text-center mb-24">
+            Trusted by Thousands
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-12">
+
+            {[
+              { value: "12K+", label: "Cars Detailed" },
+              { value: "750+", label: "Happy Clients" },
+              { value: "10+", label: "Years Experience" },
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -10 }}
+                className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-12 text-center shadow-xl"
+              >
+                <h3 className="text-5xl font-bold text-orange-500">
+                  {stat.value}
+                </h3>
+                <p className="mt-4 text-white/60">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= SIGNATURE STATEMENT ================= */}
+      <section className="bg-black text-white py-48 text-center px-8">
+
+        <h2 className="text-6xl md:text-8xl font-black leading-tight max-w-5xl mx-auto">
+          We Don’t Just Clean Cars.
+          <br />
+          <span className="text-orange-500">
+            We Elevate Them.
+          </span>
         </h2>
 
-        <button className="mt-10 px-12 py-4 bg-white text-black rounded-full hover:bg-gray-200 transition">
-          Book Your Appointment
+        <button className="mt-16 px-14 py-5 bg-orange-500 text-black rounded-full text-lg font-semibold hover:bg-orange-400 transition">
+          Book Your Experience
         </button>
+
       </section>
 
       <Footer />
