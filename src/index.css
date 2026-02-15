@@ -17,6 +17,7 @@ html.lenis {
 body {
   font-family: "Bricolage Grotesque", sans-serif;
    overflow-x: hidden;
+   background-color: black;
 } 
 
 .bricolage-grotesque {

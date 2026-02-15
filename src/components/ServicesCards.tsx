@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import ceramic from "../assets/ceramic.jpg";
 import wheel1 from "../assets/detailing.jpg";
 import wheel2 from "../assets/washing.jpg";
@@ -9,7 +10,7 @@ const services = [
     image: ceramic,
   },
   {
-    title: "WHEEL\nSCRATCH\nREPAIRS",
+    title: "WHEEL\nSCRATCH\nREPAIR",
     image: wheel1,
   },
   {
@@ -24,41 +25,66 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section className="px-6 md:px-12 py-24 bg-[#f3f3f3]">
-      {/* Heading */}
-      <h2 className="text-4xl md:text-5xl font-bold leading-tight max-w-5xl mx-auto mb-16 text-center md:text-left">
-        Expert Car Detailing: From Luxury Brands To Your Everyday Ride In Sydney
-      </h2>
+    <section className="bg-black text-white py-32 px-6 md:px-16 overflow-hidden">
 
-      {/* Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      {/* Heading */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="max-w-6xl mx-auto mb-24"
+      >
+        <p className="uppercase tracking-[0.3em] text-xs text-orange-500 mb-6">
+          Our Expertise
+        </p>
+
+        <h2 className="text-5xl md:text-7xl font-bold leading-[1.05] max-w-4xl">
+          Precision Detailing
+          <br />
+          For Every Surface.
+        </h2>
+      </motion.div>
+
+      {/* Layout */}
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
+
         {services.map((service, index) => (
-          <div
+          <motion.div
             key={index}
-            className="relative rounded-3xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-500"
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: index * 0.1 }}
+            className="group relative overflow-hidden"
           >
             {/* Image */}
-            <img
-              src={service.image}
-              alt={service.title}
-              className="w-full h-[380px] object-cover transition-transform duration-700 group-hover:scale-110"
-            />
+            <div className="relative overflow-hidden">
+              <motion.img
+                src={service.image}
+                alt={service.title}
+                className="w-full h-[520px] object-cover transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+              />
 
-            {/* Dark Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-opacity duration-500 group-hover:opacity-80" />
-
-            {/* Book Now Pill */}
-            <div className="absolute top-4 left-4 bg-blue-500 text-black text-sm px-4 py-1 rounded-full shadow-md transform opacity-0 group-hover:opacity-100 translate-y-0 group-hover:translate-y-1 transition-all duration-500">
-              Book Now
+              {/* Soft Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80" />
             </div>
 
-            {/* Title */}
-            <div className="absolute bottom-6 left-6 text-white font-bold text-2xl md:text-3xl whitespace-pre-line leading-tight transition-transform duration-500 group-hover:translate-y-[-5px]">
-              {service.title}
+            {/* Title Overlay */}
+            <div className="absolute bottom-10 left-10">
+              <h3 className="text-4xl md:text-5xl font-bold whitespace-pre-line leading-tight tracking-tight">
+                {service.title}
+              </h3>
+
+              <div className="mt-6 h-[1px] w-0 bg-white transition-all duration-500 group-hover:w-24" />
+
+              <button className="mt-6 text-sm uppercase tracking-widest text-gray-300 hover:text-white transition">
+                Explore →
+              </button>
             </div>
-          </div>
+          </motion.div>
         ))}
+
       </div>
+
     </section>
   );
 };

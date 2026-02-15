@@ -1,89 +1,99 @@
-import { FaStar } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    name: "Anjali",
-    role: "Advisor",
-    text: `"You made it so simple. My new site is so much faster and easier to work with than my old site. I just choose the page, make the change."`,
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
-    highlighted: false,
+    name: "Anjali Mehra",
+    role: "Automotive Advisor",
+    text: `The attention to detail is unmatched. Every surface was restored to absolute perfection. It felt like driving a brand-new car again.`,
   },
   {
-    name: "Shreya",
-    role: "Consultation",
-    text: `"Simply the best. Better than all the rest. I recommend this product to beginners and advanced users."`,
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-    highlighted: true,
+    name: "Shreya Kapoor",
+    role: "Luxury Car Owner",
+    text: `Simply exceptional. The finish, the clarity, the depth of shine — it exceeded every expectation. I wouldn’t trust anyone else.`,
+    highlight: true,
   },
   {
-    name: "Tushar SIngh",
-    role: "Designer",
-    text: `"I cannot believe that I have got a brand new landing page after getting Omega. It was super easy to edit and publish."`,
-    image: "https://randomuser.me/api/portraits/women/65.jpg",
-    highlighted: false,
+    name: "Tushar Singh",
+    role: "Performance Enthusiast",
+    text: `Precision craftsmanship at its finest. The ceramic coating transformed my vehicle completely. Highly recommended.`,
   },
 ];
 
 const TestimonialsSection = () => {
   return (
-    <section className="bg-[#f3f3f3] py-24 px-8">
-
-      {/* Top small text */}
-      <p className="text-center text-sm text-gray-500 mb-3">
-        2,157 people have said how good Rareblocks
-      </p>
+    <section className="bg-black text-white py-32 px-6 md:px-16">
 
       {/* Heading */}
-      <h2 className="text-center text-5xl font-bold mb-20">
-        Our happy clients
-      </h2>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="max-w-5xl mx-auto text-center mb-24"
+      >
+        <p className="uppercase tracking-[0.3em] text-xs text-orange-500 mb-6">
+          Client Experience
+        </p>
 
-      {/* Testimonials */}
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 items-center">
+        <h2 className="text-5xl md:text-7xl font-bold leading-tight">
+          What Our Clients Say
+        </h2>
+      </motion.div>
+
+      {/* Testimonials Grid */}
+      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-16">
 
         {testimonials.map((item, index) => (
-          <div
+          <motion.div
             key={index}
-            className={`p-10 rounded-3xl transition-all duration-300 ${
-              item.highlighted
-                ? "bg-white shadow-lg"
-                : "bg-transparent"
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: index * 0.1 }}
+            className={`relative ${
+              item.highlight
+                ? "bg-white text-black p-12 rounded-3xl"
+                : "p-8 border-t border-white/10"
             }`}
           >
-            {/* Stars */}
-            <div className="flex gap-1 text-orange-400 mb-6">
-              {[...Array(5)].map((_, i) => (
-                <FaStar key={i} />
-              ))}
-            </div>
-
-            {/* Text */}
-            <p className="text-gray-700 mb-8 leading-relaxed">
-              {item.text}
+            {/* Quote */}
+            <p
+              className={`text-xl leading-relaxed ${
+                item.highlight ? "font-medium" : "text-gray-300"
+              }`}
+            >
+              “{item.text}”
             </p>
 
-            {/* User */}
-            <div className="flex items-center gap-4">
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-12 h-12 rounded-full object-cover"
-              />
+            {/* Divider */}
+            <div
+              className={`h-[1px] my-10 ${
+                item.highlight
+                  ? "bg-black/10"
+                  : "bg-white/10"
+              }`}
+            />
 
-              <div>
-                <h4 className="font-semibold">{item.name}</h4>
-                <p className="text-sm text-gray-500">{item.role}</p>
-              </div>
+            {/* Name */}
+            <div>
+              <h4 className="text-lg font-semibold">
+                {item.name}
+              </h4>
+              <p
+                className={`text-sm ${
+                  item.highlight ? "text-gray-600" : "text-gray-500"
+                }`}
+              >
+                {item.role}
+              </p>
             </div>
-          </div>
+          </motion.div>
         ))}
 
       </div>
 
       {/* Bottom Link */}
-      <div className="text-center mt-16">
-        <button className="font-medium border-b border-black pb-1 hover:opacity-70 transition">
-          See all reviews
+      <div className="text-center mt-24">
+        <button className="uppercase tracking-widest text-sm border-b border-white/30 pb-2 hover:border-white transition">
+          View All Testimonials
         </button>
       </div>
 

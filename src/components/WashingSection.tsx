@@ -1,86 +1,91 @@
+import { motion } from "framer-motion";
 import washingImg from "../assets/washing.jpg";
 
-const AVATAR_URLS = [
-  "https://cdn.jsdelivr.net/gh/alohe/avatars/png/memo_34.png",
-  "https://cdn.jsdelivr.net/gh/alohe/avatars/png/memo_24.png",
-  "https://cdn.jsdelivr.net/gh/alohe/avatars/png/memo_8.png",
-  "https://cdn.jsdelivr.net/gh/alohe/avatars/png/memo_10.png",
-  "https://cdn.jsdelivr.net/gh/alohe/avatars/png/memo_12.png",
-];
-
 const features = [
-  "Our 250,000 cleans",
-  "VIP and Annual Pass Programs",
-  "100% Satisfaction",
-  "Flexible and Cost-Effective",
+  "250,000+ Professional Cleans",
+  "VIP & Annual Pass Programs",
+  "100% Satisfaction Guarantee",
+  "Flexible & Cost-Effective Solutions",
 ];
 
 const WashingSection = () => {
   return (
-    <section className="px-12 py-24 bg-[#f3f3f3]">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section className="relative bg-black text-white py-32 px-6 md:px-16 overflow-hidden">
 
-        {/* LEFT CONTENT */}
-        <div>
-          <h2 className="text-5xl font-bold leading-tight mb-6">
-            Professional Washing
-            <br />
-            and Cleaning Car
-          </h2>
+      {/* Background Subtle Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-neutral-950 to-black opacity-80" />
 
-          <p className="text-gray-600 mb-8 max-w-md">
-            Our professional and reliable car cleaners provide thorough Car
-            Detailing, Interior Deep Cleaning, and Car Polishing. Choose the
-            best service with Sheba.xyz.
-          </p>
+      <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
 
-          {/* Features List */}
-          <ul className="space-y-4 mb-8">
-            {features.map((item, index) => (
-              <li key={index} className="flex items-center gap-3">
-                <span className="w-6 h-6 flex items-center justify-center rounded-full bg-blue-500 text-white text-xs font-bold">
-                  ✓
-                </span>
-                <span className="text-gray-800">{item}</span>
-              </li>
-            ))}
-          </ul>
-
-          {/* Avatars + Booking */}
-          <div className="flex items-center gap-4 mt-6">
-            <div className="flex -space-x-3">
-              {AVATAR_URLS.slice(0, 3).map((url, index) => (
-                <img
-                  key={index}
-                  src={url}
-                  alt="avatar"
-                  className="w-10 h-10 rounded-full border-2 border-white shadow-sm"
-                />
-              ))}
-            </div>
-
-            <div>
-              <p className="text-sm font-medium text-gray-800">
-                24 Hours Service Available
-              </p>
-              <p className="text-sm">
-                Booking:{" "}
-                <span className="text-blue-500 font-semibold">
-                  666 888 000
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* RIGHT IMAGE */}
-        <div>
+        {/* LEFT IMAGE */}
+        <motion.div
+          initial={{ opacity: 0, scale: 1.05 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          className="relative overflow-hidden"
+        >
           <img
             src={washingImg}
-            alt="washing"
-            className="rounded-3xl shadow-lg w-full h-[520px] object-cover"
+            alt="Professional Car Washing"
+            className="w-full h-[620px] object-cover rounded-3xl"
           />
-        </div>
+
+          {/* Soft Dark Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-3xl" />
+        </motion.div>
+
+        {/* RIGHT CONTENT */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <p className="uppercase tracking-[0.3em] text-xs text-orange-500 mb-6">
+            Professional Washing
+          </p>
+
+          <h2 className="text-5xl md:text-6xl font-bold leading-[1.05] mb-8">
+            Precision Cleaning.
+            <br />
+            Elevated Standards.
+          </h2>
+
+          <p className="text-gray-400 leading-relaxed max-w-lg mb-12">
+            Every vehicle is treated with meticulous attention.
+            From exterior wash to interior refinement, our process
+            delivers unmatched clarity, protection, and finish.
+          </p>
+
+          {/* Feature List – Minimal Lines */}
+          <div className="space-y-6">
+            {features.map((item, index) => (
+              <div key={index} className="group">
+                <div className="flex justify-between items-center">
+                  <span className="text-lg">{item}</span>
+                  <span className="text-gray-500 group-hover:text-white transition">
+                    →
+                  </span>
+                </div>
+                <div className="h-[1px] bg-white/10 mt-4 group-hover:bg-white transition" />
+              </div>
+            ))}
+          </div>
+
+          {/* Call Info */}
+          <div className="mt-14 flex items-center justify-between border-t border-white/10 pt-8">
+            <div>
+              <p className="text-sm text-gray-500">24 Hours Available</p>
+              <p className="text-xl font-semibold mt-1">
+                +91 70802 16257
+              </p>
+            </div>
+
+            <button className="px-8 py-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition">
+              Book Service
+            </button>
+          </div>
+
+        </motion.div>
 
       </div>
     </section>

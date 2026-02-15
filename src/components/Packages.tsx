@@ -1,136 +1,115 @@
-import {
-  FiCheck,
-  FiClock,
-  FiMapPin,
-} from "react-icons/fi";
+import { motion } from "framer-motion";
 
-import { MdOutlineLocalCarWash } from "react-icons/md";
-import { GiVacuumCleaner } from "react-icons/gi";
+const plans = [
+  {
+    name: "Standard Wash",
+    price: "$29",
+    features: [
+      "Exterior Hand Wash",
+      "Wheel Cleaning",
+      "Interior Vacuum",
+      "Microfiber Dry Finish",
+    ],
+  },
+  {
+    name: "Unlimited Club",
+    price: "$79",
+    highlight: true,
+    features: [
+      "Unlimited Monthly Washes",
+      "Priority Member Lane",
+      "Free Vacuums",
+      "Interior Wipe Down",
+      "Wheel & Tire Shine",
+    ],
+  },
+  {
+    name: "Premium Detail",
+    price: "$149",
+    features: [
+      "Full Interior Detailing",
+      "Clay Bar Treatment",
+      "Paint Protection",
+      "Leather Conditioning",
+      "Ceramic Sealant",
+    ],
+  },
+];
 
 const PricingSection = () => {
   return (
-    <section className="bg-[#f3f3f3] py-24 px-8">
+    <section className="bg-black text-white py-32 px-6 md:px-16">
 
-      {/* Top Text */}
-      <p className="text-center text-sm text-gray-500 mb-3">
-        2,157 people have said how good Rareblocks
-      </p>
+      {/* Heading */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-center mb-24"
+      >
+        <p className="uppercase tracking-[0.3em] text-xs text-orange-500 mb-6">
+          Membership Plans
+        </p>
 
-      <h2 className="text-center text-5xl font-bold mb-16">
-        Chose your Package
-      </h2>
+        <h2 className="text-5xl md:text-7xl font-bold leading-tight">
+          Choose Your Package
+        </h2>
+      </motion.div>
 
-      {/* Cards */}
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 items-center">
+      {/* Pricing Grid */}
+      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12">
 
-        {/* LEFT CARD */}
-        <div>
-          <h3 className="text-2xl font-bold mb-6">OUR WASHES</h3>
+        {plans.map((plan, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: index * 0.1 }}
+            className={`relative p-10 border rounded-3xl transition-all duration-500 ${
+              plan.highlight
+                ? "border-white bg-white text-black scale-105"
+                : "border-white/10 bg-white/5"
+            }`}
+          >
+            {/* Plan Name */}
+            <h3 className="text-2xl font-semibold mb-6">
+              {plan.name}
+            </h3>
 
-          <p className="text-gray-600 mb-8">
-            Check out our line of premium washes using the highest level
-            cleaning agent and technology.
-          </p>
+            {/* Price */}
+            <div className="text-5xl font-bold mb-10">
+              {plan.price}
+              <span className="text-base font-normal opacity-60">
+                /month
+              </span>
+            </div>
 
-          <ul className="space-y-5 text-gray-700">
-            <li className="flex items-center gap-3 border-b pb-3">
-              <GiVacuumCleaner />
-              Free Vacuums
-            </li>
+            {/* Features */}
+            <ul className="space-y-4 mb-12">
+              {plan.features.map((feature, i) => (
+                <li
+                  key={i}
+                  className={`border-b pb-3 ${
+                    plan.highlight ? "border-black/10" : "border-white/10"
+                  }`}
+                >
+                  {feature}
+                </li>
+              ))}
+            </ul>
 
-            <li className="flex items-center gap-3 border-b pb-3">
-              <MdOutlineLocalCarWash />
-              Self-Grab Towels
-            </li>
-
-            <li className="flex items-center gap-3 border-b pb-3">
-              <FiMapPin />
-              Usable At Any Club Car Wash Location
-            </li>
-          </ul>
-
-          <button className="mt-10 bg-blue-500 hover:bg-orange-600 transition text-white px-8 py-3 rounded-full font-semibold">
-            View Washes
-          </button>
-        </div>
-
-        {/* CENTER CARD (Highlighted) */}
-        <div className="bg-white rounded-3xl p-10 shadow-lg">
-          <h3 className="text-2xl font-bold mb-6 text-center">
-            UNLIMITED CLUB
-          </h3>
-
-          <p className="text-gray-600 mb-8 text-center">
-            Join the Unlimited Club and wash as often as you'd like.
-            Just two washes per month makes your membership worth it!
-          </p>
-
-          <ul className="space-y-5 text-gray-700">
-            <li className="flex items-center gap-3 border-b pb-3">
-              <FiCheck />
-              Wash As Often As You Like
-            </li>
-
-            <li className="flex items-center gap-3 border-b pb-3">
-              <FiClock />
-              Free Vacuums
-            </li>
-
-            <li className="flex items-center gap-3 border-b pb-3">
-              <MdOutlineLocalCarWash />
-              Self-Grab Towels
-            </li>
-
-            <li className="flex items-center gap-3 border-b pb-3">
-              <FiMapPin />
-              Usable At Any Club Car Wash Location
-            </li>
-          </ul>
-
-          <button className="mt-10 w-full bg-blue-500 hover:bg-orange-600 transition text-white px-8 py-3 rounded-full font-semibold">
-            View Washes
-          </button>
-        </div>
-
-        {/* RIGHT CARD */}
-        <div>
-          <h3 className="text-2xl font-bold mb-6">UNLIMITED PERKS</h3>
-
-          <p className="text-gray-600 mb-8">
-            Join the Unlimited Club
-          </p>
-
-          <ul className="space-y-5 text-gray-700">
-            <li className="flex items-center gap-3 border-b pb-3">
-              <FiCheck />
-              Contactless Express Member Lane
-            </li>
-
-            <li className="flex items-center gap-3 border-b pb-3">
-              <FiCheck />
-              Wash As Often As You Like
-            </li>
-
-            <li className="flex items-center gap-3 border-b pb-3">
-              <FiClock />
-              Free Vacuums
-            </li>
-
-            <li className="flex items-center gap-3 border-b pb-3">
-              <MdOutlineLocalCarWash />
-              Self-Grab Towels
-            </li>
-
-            <li className="flex items-center gap-3 border-b pb-3">
-              <FiMapPin />
-              Usable At Any Club Car Wash Location
-            </li>
-          </ul>
-
-          <button className="mt-10 bg-blue-500 hover:bg-orange-600 transition text-white px-8 py-3 rounded-full font-semibold">
-            View Washes
-          </button>
-        </div>
+            {/* Button */}
+            <button
+              className={`w-full py-3 rounded-full transition ${
+                plan.highlight
+                  ? "bg-black text-white hover:bg-neutral-800"
+                  : "border border-white/20 hover:bg-white hover:text-black"
+              }`}
+            >
+              Get Started
+            </button>
+          </motion.div>
+        ))}
 
       </div>
     </section>

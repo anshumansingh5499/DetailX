@@ -1,84 +1,110 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import BookingModal from "../components/BookingModal";
+import logo from "../../public/tire.png";
+
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  /* Detect Scroll for Glass Effect */
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
-      <nav className="w-full flex justify-between items-center px-6 md:px-12 py-6 bg-white shadow-sm relative z-50">
-        
+      {/* ================= NAVBAR ================= */}
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 px-6 md:px-12 py-5 flex justify-between items-center
+        ${
+          scrolled
+            ? "backdrop-blur-2xl bg-black/60 border-b border-white/10"
+            : "bg-transparent"
+        }`}
+      >
         {/* Logo */}
-        <h1 className="text-2xl font-extrabold tracking-wider">
-          Detail<span className="text-blue-600 font-extrabold">X</span>
-        </h1>
+        <Link to="/" className="flex items-center">
+  <img
+    src={logo}
+    alt="DetailXAuto Logo"
+    className="h-8 md:h-10 w-auto object-contain"
+  />
+</Link>
+
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link to="/" className="hover:text-blue-600 transition">
-            Home
-          </Link>
-          <Link to="/about" className="hover:text-blue-600 transition">
-            About us
-          </Link>
-          <Link to="/services" className="hover:text-blue-600 transition">
-            Services
-          </Link>
-          <Link to="/blogs" className="hover:text-blue-600 transition">
-            Blogs
-          </Link>
+        <div className="hidden md:flex items-center gap-10 text-white relative">
+          {["Home", "About", "Services", "Blogs"].map((item, index) => (
+            <Link
+              key={index}
+              to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+              className="relative group text-sm tracking-wide"
+            >
+              {item}
+              <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full" />
+            </Link>
+          ))}
 
+          {/* CTA */}
           <button
             onClick={() => setOpen(true)}
-            className="bg-blue-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full transition"
+            className="ml-6 px-6 py-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition backdrop-blur-xl"
           >
             Book Now
           </button>
         </div>
 
-        {/* Manage Membership (Desktop Only) */}
-        <p className="hidden md:block text-sm cursor-pointer hover:text-blue-600 transition">
-          Manage Membership
-        </p>
-
-        {/* Hamburger Icon (Mobile Only) */}
-        <div className="md:hidden">
+        {/* Mobile Hamburger */}
+        <div className="md:hidden text-white">
           <button onClick={() => setMobileMenu(!mobileMenu)}>
             {mobileMenu ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      {mobileMenu && (
-        <div className="md:hidden absolute top-20 left-0 w-full bg-white shadow-lg flex flex-col items-center gap-6 py-8 z-40 animate-slideDown">
-          <Link to="/" onClick={() => setMobileMenu(false)}>
-            Home
-          </Link>
-          <Link to="/about" onClick={() => setMobileMenu(false)}>
-            About us
-          </Link>
-          <Link to="/services" onClick={() => setMobileMenu(false)}>
-            Services
-          </Link>
-          <Link to="/blogs" onClick={() => setMobileMenu(false)}>
-            Blogs
-          </Link>
-
-          <button
-            onClick={() => {
-              setOpen(true);
-              setMobileMenu(false);
-            }}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full transition"
+      {/* ================= MOBILE FULLSCREEN MENU ================= */}
+      <AnimatePresence>
+        {mobileMenu && (
+          <motion.div
+            initial={{ opacity: 0, y: -40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 bg-black text-white flex flex-col items-center justify-center gap-10 text-2xl z-40"
           >
-            Book Now
-          </button>
-        </div>
-      )}
+            {["Home", "About", "Services", "Blogs"].map((item, index) => (
+              <Link
+                key={index}
+                to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                onClick={() => setMobileMenu(false)}
+                className="hover:text-white/60 transition"
+              >
+                {item}
+              </Link>
+            ))}
+
+            <button
+              onClick={() => {
+                setOpen(true);
+                setMobileMenu(false);
+              }}
+              className="mt-6 px-8 py-3 border border-white rounded-full hover:bg-white hover:text-black transition"
+            >
+              Book Now
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {open && <BookingModal close={() => setOpen(false)} />}
     </>

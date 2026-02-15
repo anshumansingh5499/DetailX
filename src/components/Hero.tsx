@@ -4,83 +4,87 @@ import heroCarmini from "../assets/mini-car.jpg";
 
 const Hero = () => {
   return (
-    <section className="relative bg-[#f3f3f3] px-6 md:px-12 pt-10 pb-16 md:pb-24 overflow-hidden">
+    <section className="relative bg-black px-6 md:px-12 pt-10 pb-16 md:pb-24 overflow-hidden text-white">
 
       {/* Top Small Badge */}
-      <div className="flex items-center gap-3 mb-8 md:mb-10">
-        <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center shadow-md p-3">
+      <div className="flex items-center gap-3 mb-8 md:mb-10 mt-8">
+        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg p-2">
           <img src={badgeIcon} alt="icon" className="w-5 h-5" />
         </div>
-        <span className="bg-white px-4 md:px-5  py-3 rounded-full text-xs md:text-sm shadow-sm">
-          Book a car wash with the INDIA largest car wash specialist
+        <span className="bg-white/10 backdrop-blur-md border border-white/20 px-4 md:px-5 py-3 rounded-full text-xs md:text-sm shadow-md">
+          Book a car wash with INDIA’s largest car wash specialist
         </span>
       </div>
- <a
-          href="tel:+917080216257"
-          className="flex items-center justify-center absolute top-50px -translate-y-1/2 right-[-32px] origin-center rotate-90"
+
+      {/* Connect Button */}
+      <a
+        href="tel:+917080216257"
+        className="flex items-center justify-center absolute top-[50%] right-[-32px] origin-center rotate-90"
+      >
+        <button
+          className="
+            px-3 py-2
+            text-xs font-semibold tracking-wide
+            bg-white
+            text-black
+            hover:scale-105
+            transition-all duration-300
+            shadow-lg
+          "
         >
-          <button
-            className="
-              px-3 py-2
-              text-xs font-semibold tracking-wide
-              border-orange-300/70
-              bg-red-500 text-white
-              hover:bg-orange-50 hover:text-red-600 hover:-translate-y-0.5
-              transition-all duration-300
-            "
-          >
-            Connect us
-          </button>
-        </a>
+          Connect Us
+        </button>
+      </a>
+
+      {/* Huge Background Text */}
       <h1
         className="
         md:absolute md:top-32 md:left-1/2 md:-translate-x-1/2
         w-full text-center
-        text-[18vw] md:text-[15vw]
+        text-[18vw] md:text-[12vw]
         font-black leading-none
         tracking-tight
         z-0 select-none
+        text-white/40
         "
       >
-        <span className="text-blue-600">
-          CAR DETAILING
-        </span>
+        DRIVE PERFECTION
       </h1>
+      
 
-      {/* Floating Tags */}
-      {/* Desktop Only Absolute */}
-      <div className="hidden md:block absolute top-[210px] left-[70px] z-20 bg-white px-4 py-1 rounded-full text-xs shadow">
+      {/* Desktop Floating Tags */}
+      <div className="hidden md:block absolute top-[210px] left-[70px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
         Carwash
       </div>
-      <div className="hidden md:block absolute top-[210px] left-[420px] z-20 bg-white px-4 py-1 rounded-full text-xs shadow">
+      <div className="hidden md:block absolute top-[210px] left-[420px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
         Ceramic
       </div>
-      <div className="hidden md:block absolute top-[210px] right-[280px] z-20 bg-white px-4 py-1 rounded-full text-xs shadow">
+      <div className="hidden md:block absolute top-[210px] right-[280px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
         Car Shine
       </div>
-      <div className="hidden md:block absolute top-[260px] left-[160px] z-20 bg-white px-4 py-1 rounded-full text-xs shadow">
+      <div className="hidden md:block absolute top-[260px] left-[160px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
         Shine
       </div>
-      <div className="hidden md:block absolute top-[260px] right-[220px] z-20 bg-white px-4 py-1 rounded-full text-xs shadow">
-        Wheel scratch
+      <div className="hidden md:block absolute top-[260px] right-[220px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
+        Wheel Scratch
       </div>
-      <div className="hidden md:block absolute top-[260px] right-[80px] z-20 bg-white px-4 py-1 rounded-full text-xs shadow">
+      <div className="hidden md:block absolute top-[260px] right-[80px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
         Auto Detailing
       </div>
 
-      {/* Mobile Tags Layout */}
+      {/* Mobile Tags */}
       <div className="flex flex-wrap gap-2 mt-6 md:hidden">
         {[
           "Carwash",
           "Ceramic",
           "Car Shine",
           "Shine",
-          "Wheel scratch",
+          "Wheel Scratch",
           "Auto Detailing",
         ].map((tag, index) => (
           <span
             key={index}
-            className="bg-white px-4 py-1 rounded-full text-xs shadow"
+            className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs"
           >
             {tag}
           </span>
@@ -88,20 +92,25 @@ const Hero = () => {
       </div>
 
       {/* HERO IMAGE */}
-      <div className="relative z-10 mt-12 md:mt-52 rounded-3xl overflow-hidden shadow-xl">
+      <div className="relative z-10 mt-12 md:mt-52 rounded-3xl overflow-hidden shadow-2xl">
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/40 z-10"></div>
+
         <img
           src={heroCar}
           alt="Car"
-          className="w-full h-[350px] md:h-[520px] object-cover"
+          className="w-full h-[350px] md:h-[520px] object-cover mt-[-120px]"
         />
 
-        {/* LEFT OVERLAY CARD */}
+        {/* LEFT CARD */}
         <div
           className="
+          relative z-20
           md:absolute md:bottom-8 md:left-8
-          bg-white rounded-2xl p-6
+          bg-white/10 backdrop-blur-xl border border-white/20
+          rounded-2xl p-6
           w-full md:w-[480px]
-          shadow-xl
+          shadow-2xl
           flex flex-col md:flex-row gap-5
           mt-6 md:mt-0
           "
@@ -110,7 +119,7 @@ const Hero = () => {
             <h3 className="text-base md:text-lg font-semibold leading-snug mb-4 md:mb-6">
               Our Customers are the most important part of our business
             </h3>
-            <button className="text-sm font-medium">
+            <button className="text-sm font-medium text-orange-500 hover:underline">
               Read More →
             </button>
           </div>
@@ -122,22 +131,24 @@ const Hero = () => {
           />
         </div>
 
-        {/* RIGHT OVERLAY CARD */}
+        {/* RIGHT CARD */}
         <div
           className="
+          relative z-20
           md:absolute md:bottom-8 md:right-8
-          bg-white rounded-2xl p-6
+          bg-white/10 backdrop-blur-xl border border-white/20
+          rounded-2xl p-6
           w-full md:w-[280px]
-          shadow-xl
+          shadow-2xl
           mt-6 md:mt-0
           "
         >
-          <p className="text-xs text-gray-600 mb-4 leading-relaxed">
+          <p className="text-xs text-gray-300 mb-4 leading-relaxed">
             Our professional and reliable car cleaners provide thorough Car
-            Detailing, Interior Deep Cleaning
+            Detailing & Interior Deep Cleaning.
           </p>
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold mb-2 text-orange-500">
             4.6
           </h2>
 
@@ -145,18 +156,18 @@ const Hero = () => {
             <div className="flex -space-x-2">
               <img
                 src="https://i.pravatar.cc/40?img=1"
-                className="w-7 h-7 rounded-full border-2 border-white"
+                className="w-7 h-7 rounded-full border-2 border-black"
               />
               <img
                 src="https://i.pravatar.cc/40?img=2"
-                className="w-7 h-7 rounded-full border-2 border-white"
+                className="w-7 h-7 rounded-full border-2 border-black"
               />
               <img
                 src="https://i.pravatar.cc/40?img=3"
-                className="w-7 h-7 rounded-full border-2 border-white"
+                className="w-7 h-7 rounded-full border-2 border-black"
               />
             </div>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-gray-400">
               750+ happy clients
             </span>
           </div>

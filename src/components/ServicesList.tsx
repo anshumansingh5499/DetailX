@@ -56,12 +56,14 @@ const ServicesAwwwards = () => {
     offset: ["start start", "end end"],
   });
 
+  // 🔥 Stable index calculation
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const index = Math.min(
+    const section = 1 / services.length;
+    const newIndex = Math.min(
       services.length - 1,
-      Math.floor(latest * services.length)
+      Math.floor(latest / section)
     );
-    setActive(index);
+    setActive((prev) => (prev !== newIndex ? newIndex : prev));
   });
 
   const progressHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
@@ -69,12 +71,12 @@ const ServicesAwwwards = () => {
   return (
     <section
       ref={containerRef}
-      className={`relative h-[500vh] transition-colors duration-700 ${services[active].bg}`}
+      className={`relative h-[400vh] transition-colors duration-700 ${services[active].bg}`}
     >
-      <div className=" sticky top-0 h-screen flex flex-col md:flex-row items-center px-6 md:px-24">
+      <div className="sticky top-0 h-screen flex flex-col md:flex-row items-center justify-center px-6 md:px-24">
 
-        {/* Progress Indicator */}
-        <div className="hidden md:block absolute left-12 top-1/2 -translate-y-1/2 h-64 w-[2px] bg-white/20">
+        {/* Progress Line */}
+        <div className="hidden md:block absolute left-16 top-1/2 -translate-y-1/2 h-72 w-[2px] bg-white/10">
           <motion.div
             style={{ height: progressHeight }}
             className="w-full bg-white origin-top"
@@ -82,83 +84,53 @@ const ServicesAwwwards = () => {
         </div>
 
         {/* LEFT IMAGE */}
-        <div className="w-full md:w-1/2 h-[50vh] md:h-[70vh] relative rounded-[40px] overflow-hidden mb-12 md:mb-0">
+        <div className="w-full md:w-1/2 h-[50vh] md:h-[70vh] relative rounded-[40px] overflow-hidden mb-10 md:mb-0">
           <AnimatePresence mode="wait">
             <motion.img
               key={active}
               src={services[active].image}
-              initial={{ opacity: 0, filter: "blur(40px)" }}
-              animate={{ opacity: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, filter: "blur(40px)" }}
-              transition={{ duration: 1 }}
-              className="absolute inset-0 w-full h-full object-cover rounded-[40px]"
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="absolute inset-0 w-full h-full object-cover"
             />
           </AnimatePresence>
         </div>
 
         {/* RIGHT CONTENT */}
-        <div className="w-full md:w-1/2 text-white relative ml-8">
+        <div className="w-full md:w-1/2 text-white md:pl-20">
 
-          {/* Title with Character Reveal */}
           <AnimatePresence mode="wait">
-            <motion.h2
+            <motion.div
               key={active}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={{
-                visible: {
-                  transition: { staggerChildren: 0.03 },
-                },
-              }}
-              className="text-4xl md:text-6xl font-light tracking-tight"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.6 }}
             >
-              {services[active].title.split("").map((char, i) => (
-                <motion.span
-                  key={i}
-                  variants={{
-                    hidden: { opacity: 0, y: 50 },
-                    visible: { opacity: 1, y: 0 },
-                  }}
-                  transition={{ duration: 0.4 }}
-                  whileHover={{ scale: 1.1 }}
-                  className="inline-block cursor-default"
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </motion.h2>
+              <h2 className="text-4xl md:text-6xl font-light tracking-tight">
+                {services[active].title}
+              </h2>
+
+              <p className="mt-6 md:mt-10 text-base md:text-lg text-white/80 max-w-xl leading-relaxed">
+                {services[active].desc}
+              </p>
+
+              <p className="mt-4 md:mt-6 text-sm md:text-base text-white/60 max-w-xl leading-relaxed">
+                {services[active].details}
+              </p>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.97 }}
+                className="mt-8 md:mt-14 px-8 py-4 border border-white/30 rounded-full tracking-widest hover:bg-white hover:text-black transition duration-500"
+              >
+                DISCOVER MORE
+              </motion.button>
+            </motion.div>
           </AnimatePresence>
 
-          {/* Description */}
-          <motion.p
-            key={active + "desc"}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 0.8, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mt-6 md:mt-12 text-base md:text-lg leading-relaxed max-w-full md:max-w-xl"
-          >
-            {services[active].desc}
-          </motion.p>
-
-          {/* Extra Professional Content */}
-          <motion.p
-            key={active + "details"}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 0.7, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="mt-4 md:mt-8 text-sm md:text-base max-w-full md:max-w-xl leading-relaxed"
-          >
-            {services[active].details}
-          </motion.p>
-
-          {/* CTA */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            className="mt-8 md:mt-16 px-6 md:px-8 py-3 md:py-4 border border-white/30 rounded-full text-sm md:text-base tracking-widest hover:bg-white hover:text-black transition duration-500"
-          >
-            DISCOVER MORE
-          </motion.button>
         </div>
       </div>
     </section>
