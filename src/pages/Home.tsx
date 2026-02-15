@@ -13,9 +13,10 @@ const Home = () => {
     <>
       <Navbar />
       <Hero />
+            <ServicesAccordion/>
+
       <ServicesCards />
       <WashingSection />
-      <ServicesAccordion/>
       {/* <Packages /> */}
       <HomeBlogSection/>
       <Testimonials />

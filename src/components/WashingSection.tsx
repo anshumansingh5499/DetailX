@@ -10,81 +10,88 @@ const features = [
 
 const WashingSection = () => {
   return (
-    <section className="relative bg-black text-white py-32 px-6 md:px-16 overflow-hidden">
+    <section className="bg-white py-36 px-6 md:px-20 overflow-hidden">
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
 
-      {/* Background Subtle Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-neutral-950 to-black opacity-80" />
-
-      <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
-
-        {/* LEFT IMAGE */}
-        <motion.div
-          initial={{ opacity: 0, scale: 1.05 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-          className="relative overflow-hidden"
-        >
-          <img
-            src={washingImg}
-            alt="Professional Car Washing"
-            className="w-full h-[620px] object-cover rounded-3xl"
-          />
-
-          {/* Soft Dark Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-3xl" />
-        </motion.div>
-
-        {/* RIGHT CONTENT */}
+        {/* LEFT CONTENT */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
         >
-          <p className="uppercase tracking-[0.3em] text-xs text-orange-500 mb-6">
+          <p className="uppercase tracking-[0.4em] text-xs text-neutral-400 mb-8">
             Professional Washing
           </p>
 
-          <h2 className="text-5xl md:text-6xl font-bold leading-[1.05] mb-8">
-            Precision Cleaning.
+          <h2 className="text-6xl md:text-7xl font-light leading-[0.95] tracking-tight text-black">
+            Refined.
             <br />
-            Elevated Standards.
+            Restored.
+            <br />
+            Protected.
           </h2>
 
-          <p className="text-gray-400 leading-relaxed max-w-lg mb-12">
-            Every vehicle is treated with meticulous attention.
-            From exterior wash to interior refinement, our process
-            delivers unmatched clarity, protection, and finish.
+          <p className="mt-10 text-neutral-600 max-w-xl leading-relaxed text-lg">
+            Our precision washing system combines advanced surface-safe
+            techniques with refined finishing standards. Every vehicle
+            leaves with amplified clarity and long-lasting brilliance.
           </p>
 
-          {/* Feature List – Minimal Lines */}
-          <div className="space-y-6">
+          {/* Features – 2 Column Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 mt-16">
             {features.map((item, index) => (
-              <div key={index} className="group">
-                <div className="flex justify-between items-center">
-                  <span className="text-lg">{item}</span>
-                  <span className="text-gray-500 group-hover:text-white transition">
-                    →
-                  </span>
-                </div>
-                <div className="h-[1px] bg-white/10 mt-4 group-hover:bg-white transition" />
-              </div>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="border-b border-neutral-200 pb-4"
+              >
+                <span className="text-base text-black">
+                  {item}
+                </span>
+              </motion.div>
             ))}
           </div>
 
-          {/* Call Info */}
-          <div className="mt-14 flex items-center justify-between border-t border-white/10 pt-8">
+          {/* CTA Section */}
+          <div className="mt-20 flex flex-col sm:flex-row sm:items-center gap-10">
+
             <div>
-              <p className="text-sm text-gray-500">24 Hours Available</p>
-              <p className="text-xl font-semibold mt-1">
+              <p className="text-sm text-neutral-400">
+                24/7 Premium Support
+              </p>
+              <p className="text-2xl font-medium mt-2 text-black">
                 +91 70802 16257
               </p>
             </div>
 
-            <button className="px-8 py-3 border border-white/20 rounded-full hover:bg-white hover:text-black transition">
-              Book Service
+            <button className="px-10 py-4 border border-black rounded-full 
+                               hover:bg-black hover:text-white 
+                               transition-all duration-500 w-fit">
+              Schedule Appointment
             </button>
-          </div>
 
+          </div>
+        </motion.div>
+
+        {/* RIGHT IMAGE */}
+        <motion.div
+          initial={{ opacity: 0, scale: 1.05 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="relative"
+        >
+          <div className="absolute -top-10 -left-10 w-full h-full border border-neutral-200 rounded-3xl" />
+
+          <img
+            src={washingImg}
+            alt="Professional Car Washing"
+            className="relative w-full h-[650px] object-cover rounded-3xl shadow-xl"
+          />
         </motion.div>
 
       </div>

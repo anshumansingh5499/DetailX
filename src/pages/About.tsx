@@ -8,146 +8,145 @@ const About = () => {
     <>
       <Navbar />
 
-      {/* ================= CINEMATIC HERO ================= */}
-      <section className="relative min-h-screen bg-black text-white overflow-hidden flex items-center">
+      {/* ================= HERO (MINIMAL) ================= */}
+      <section className="bg-white pt-40 pb-32 px-6 md:px-20">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
 
-        {/* Background */}
-        <img
-          src={aboutImg}
-          className="absolute inset-0 w-full h-full object-cover opacity-25 scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 grid md:grid-cols-2 gap-20 items-center">
-
-          {/* Massive Typography */}
-          <div>
-            <h1 className="text-[80px] md:text-[120px] font-black leading-[0.9] tracking-tight">
-              WE
-              <br />
-              BUILD
-              <br />
-              <span className="text-orange-500">PERFECTION</span>
-            </h1>
-          </div>
-
-          {/* Statement */}
-          <div>
-            <p className="text-xl text-white/70 leading-relaxed max-w-lg">
-              Since 2015, we have engineered detailing excellence —
-              combining precision technology, advanced ceramic science,
-              and obsessive craftsmanship.
+          {/* Left Text */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <p className="uppercase tracking-[0.4em] text-xs text-gray-400 mb-6">
+              About Us
             </p>
 
-            <div className="mt-10 border-l-2 border-orange-500 pl-6">
-              <p className="text-lg">
-                “Every surface matters. Every detail defines luxury.”
-              </p>
-            </div>
-          </div>
+            <h1 className="text-5xl md:text-7xl font-light leading-[1.05] text-black">
+              We Build
+              <br />
+              <span className="font-medium">Perfection.</span>
+            </h1>
+
+            <p className="mt-8 text-gray-600 leading-relaxed max-w-lg">
+              Since 2015, we have focused on one philosophy — precision.
+              Every vehicle is treated with obsessive attention, advanced
+              ceramic science, and craftsmanship that defines modern luxury.
+            </p>
+          </motion.div>
+
+          {/* Right Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 1.05 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="overflow-hidden rounded-3xl"
+          >
+            <img
+              src={aboutImg}
+              alt="About us"
+              className="w-full h-[480px] object-cover"
+            />
+          </motion.div>
 
         </div>
       </section>
 
-      {/* ================= WHAT MAKES US DIFFERENT ================= */}
-      <section className="bg-black text-white py-40 px-8 md:px-16">
+      {/* ================= VALUES / DIFFERENCE ================= */}
+      <section className="bg-neutral-50 py-28 px-6 md:px-20">
+        <div className="max-w-6xl mx-auto">
 
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-4xl md:text-5xl font-light text-black mb-20"
+          >
+            What Makes Us Different
+          </motion.h2>
 
-          {/* Left Sticky Big Title */}
-          <div className="sticky top-32 self-start">
-            <h2 className="text-6xl font-bold leading-tight">
-              What Makes
-              <br />
-              Us Different
-            </h2>
-          </div>
-
-          {/* Right Content */}
-          <div className="space-y-20">
-
+          <div className="grid md:grid-cols-3 gap-16">
             {[
               {
-                title: "Advanced Ceramic Engineering",
-                text: "We apply nano-ceramic coatings engineered for extreme hydrophobic protection and long-term paint preservation."
+                title: "Ceramic Engineering",
+                text: "Nano-ceramic coatings engineered for hydrophobic protection, UV resistance, and long-term durability.",
               },
               {
-                title: "Precision Paint Correction",
-                text: "Multi-stage polishing removes swirl marks, oxidation, and micro scratches to restore mirror-level clarity."
+                title: "Paint Precision",
+                text: "Multi-stage paint correction removes swirl marks and restores deep gloss with microscopic accuracy.",
               },
               {
-                title: "Luxury Interior Restoration",
-                text: "From leather hydration to fabric deep extraction, we restore comfort and elegance."
+                title: "Interior Craft",
+                text: "Leather conditioning, fabric extraction, and refined interior restoration for a luxury finish.",
               },
-            ].map((item, index) => (
+            ].map((item, i) => (
               <motion.div
-                key={index}
-                whileHover={{ x: 10 }}
-                className="border-b border-white/10 pb-10"
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: i * 0.1 }}
               >
-                <h3 className="text-3xl font-semibold text-orange-500">
+                <h3 className="text-xl font-medium text-black">
                   {item.title}
                 </h3>
-                <p className="mt-4 text-white/60 leading-relaxed">
+                <p className="mt-4 text-gray-600 leading-relaxed text-sm">
                   {item.text}
                 </p>
               </motion.div>
             ))}
-
           </div>
         </div>
       </section>
 
-      {/* ================= FLOATING STATS SECTION ================= */}
-      <section className="relative bg-neutral-950 text-white py-40 px-8 md:px-16 overflow-hidden">
+      {/* ================= STATS (CLEAN) ================= */}
+      <section className="bg-white py-28 px-6 md:px-20">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12 text-center">
 
-        <div className="max-w-7xl mx-auto relative">
-
-          <h2 className="text-7xl font-black text-center mb-24">
-            Trusted by Thousands
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-12">
-
-            {[
-              { value: "12K+", label: "Cars Detailed" },
-              { value: "750+", label: "Happy Clients" },
-              { value: "10+", label: "Years Experience" },
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ y: -10 }}
-                className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-12 text-center shadow-xl"
-              >
-                <h3 className="text-5xl font-bold text-orange-500">
-                  {stat.value}
-                </h3>
-                <p className="mt-4 text-white/60">
-                  {stat.label}
-                </p>
-              </motion.div>
-            ))}
-
-          </div>
+          {[
+            { value: "12K+", label: "Cars Detailed" },
+            { value: "750+", label: "Happy Clients" },
+            { value: "10+", label: "Years of Experience" },
+          ].map((stat, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="border border-gray-200 rounded-2xl py-14"
+            >
+              <h3 className="text-4xl font-medium text-black">
+                {stat.value}
+              </h3>
+              <p className="mt-3 text-gray-500 text-sm">
+                {stat.label}
+              </p>
+            </motion.div>
+          ))}
 
         </div>
       </section>
 
-      {/* ================= SIGNATURE STATEMENT ================= */}
-      <section className="bg-black text-white py-48 text-center px-8">
-
-        <h2 className="text-6xl md:text-8xl font-black leading-tight max-w-5xl mx-auto">
-          We Don’t Just Clean Cars.
+      {/* ================= STATEMENT CTA ================= */}
+      <section className="bg-neutral-50 py-32 text-center px-6">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-6xl font-light leading-tight max-w-4xl mx-auto text-black"
+        >
+          We Don’t Just Detail Cars.
           <br />
-          <span className="text-orange-500">
+          <span className="font-medium">
             We Elevate Them.
           </span>
-        </h2>
+        </motion.h2>
 
-        <button className="mt-16 px-14 py-5 bg-orange-500 text-black rounded-full text-lg font-semibold hover:bg-orange-400 transition">
+        <button
+          className="mt-14 px-12 py-4 border border-black rounded-full 
+                     hover:bg-black hover:text-white transition-all duration-500"
+        >
           Book Your Experience
         </button>
-
       </section>
 
       <Footer />

@@ -6,7 +6,7 @@ const Hero = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden text-white">
+    <section className="relative h-screen w-full overflow-hidden">
 
       {/* Background Video */}
       <video
@@ -19,38 +19,35 @@ const Hero = () => {
         <source src={heroVideo} type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 bg-black/60" />
+      {/* Subtle Dark Gradient (Porsche Style) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-      <div className="relative z-10 flex flex-col justify-center h-full px-6 md:px-20">
+      {/* Content */}
+      <div className="relative z-10 h-full flex flex-col justify-end pb-24 px-6 md:px-20 text-white">
 
-        <p className="uppercase tracking-[0.4em] text-xs text-orange-500 mb-6">
-          Premium Automotive Detailing
-        </p>
-
-        <h1 className="text-6xl md:text-8xl font-light leading-[0.95]">
-          Drive the Art of <br />
-          <span className="font-semibold">Perfection.</span>
+        <h1 className="text-5xl md:text-7xl font-light leading-tight tracking-tight max-w-3xl">
+          Drive the art of perfection.
         </h1>
- <p className="mt-8 text-base md:text-lg text-white/70 max-w-xl leading-relaxed">
-          Precision ceramic coating, elite paint correction,
-          and handcrafted interior restoration for those who
-          demand nothing but excellence.
+
+        <p className="mt-6 text-white/80 text-base md:text-lg max-w-xl leading-relaxed">
+          Precision detailing. Ceramic protection. Paint refinement.
         </p>
-        <div className="mt-12 flex gap-6">
+
+        <div className="mt-10 flex gap-6">
 
           <button
             onClick={() => setOpen(true)}
-            className="px-10 py-4 bg-white text-black rounded-full 
-                       hover:bg-white/80 transition-all duration-500"
+            className="px-8 py-3 bg-white text-black rounded-full 
+                       hover:bg-white/80 transition duration-300"
           >
             Book Appointment
           </button>
 
           <button
-            className="px-10 py-4 border border-white/40 rounded-full 
-                       hover:bg-white hover:text-black transition-all duration-500"
+            className="px-8 py-3 border border-white/50 rounded-full 
+                       hover:bg-white hover:text-black transition duration-300"
           >
-            Discover More
+            Explore Services
           </button>
 
         </div>

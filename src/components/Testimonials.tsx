@@ -21,79 +21,80 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   return (
-    <section className="bg-black text-white py-32 px-6 md:px-16">
+    <section className="bg-white text-black py-36 px-6 md:px-16">
 
       {/* Heading */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="max-w-5xl mx-auto text-center mb-24"
+        viewport={{ once: true }}
+        className="max-w-3xl mx-auto text-center mb-32"
       >
-        <p className="uppercase tracking-[0.3em] text-xs text-orange-500 mb-6">
+        <p className="uppercase tracking-[0.4em] text-xs text-black/40 mb-6">
           Client Experience
         </p>
 
-        <h2 className="text-5xl md:text-7xl font-bold leading-tight">
-          What Our Clients Say
+        <h2 className="text-4xl md:text-6xl font-light tracking-tight leading-tight">
+          Words From Our Clients
         </h2>
       </motion.div>
 
-      {/* Testimonials Grid */}
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-16">
+      {/* Testimonials */}
+      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-20 items-start">
 
         {testimonials.map((item, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: index * 0.1 }}
+            transition={{ duration: 0.8, delay: index * 0.15 }}
+            viewport={{ once: true }}
             className={`relative ${
-              item.highlight
-                ? "bg-white text-black p-12 rounded-3xl"
-                : "p-8 border-t border-white/10"
+              item.highlight ? "md:-mt-10" : ""
             }`}
           >
-            {/* Quote */}
+
+            {/* Large Subtle Quote Mark */}
+            <div className="absolute -top-10 left-0 text-[120px] font-light text-black/5 leading-none select-none">
+              “
+            </div>
+
+            {/* Quote Text */}
             <p
-              className={`text-xl leading-relaxed ${
-                item.highlight ? "font-medium" : "text-gray-300"
+              className={`relative text-lg leading-relaxed ${
+                item.highlight
+                  ? "text-black text-xl md:text-2xl font-light"
+                  : "text-black/60"
               }`}
             >
-              “{item.text}”
+              {item.text}
             </p>
 
             {/* Divider */}
-            <div
-              className={`h-[1px] my-10 ${
-                item.highlight
-                  ? "bg-black/10"
-                  : "bg-white/10"
-              }`}
-            />
+            <div className="w-12 h-[1px] bg-black/20 mt-10 mb-6" />
 
             {/* Name */}
             <div>
-              <h4 className="text-lg font-semibold">
+              <h4 className="text-base font-medium">
                 {item.name}
               </h4>
-              <p
-                className={`text-sm ${
-                  item.highlight ? "text-gray-600" : "text-gray-500"
-                }`}
-              >
+              <p className="text-sm text-black/40 mt-1">
                 {item.role}
               </p>
             </div>
+
           </motion.div>
         ))}
-
       </div>
 
-      {/* Bottom Link */}
-      <div className="text-center mt-24">
-        <button className="uppercase tracking-widest text-sm border-b border-white/30 pb-2 hover:border-white transition">
-          View All Testimonials
+      {/* Bottom CTA */}
+      <div className="text-center mt-32">
+        <button className="px-10 py-3 border border-black/30 rounded-full 
+                           text-sm tracking-widest 
+                           hover:bg-black hover:text-white 
+                           transition-all duration-500">
+          VIEW ALL TESTIMONIALS
         </button>
       </div>
 

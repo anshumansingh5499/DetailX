@@ -12,33 +12,29 @@ const services = [
     title: "Express Exterior",
     desc: "A precision foam wash system engineered for hydrophobic brilliance and refined gloss retention.",
     details:
-      "Our multi-stage exterior process includes pH-balanced foam pre-wash, dual-bucket safe contact wash, microfiber air drying, wheel decontamination, and polymer-based sealant application to preserve paint integrity.",
+      "Includes pH-balanced pre-wash, safe contact wash, microfiber drying, wheel cleaning, and protective sealant application.",
     image: ceramic,
-    bg: "bg-neutral-950",
   },
   {
     title: "Full Service Wash",
     desc: "Interior refinement meets exterior perfection.",
     details:
-      "Complete cabin vacuuming, steam-based sanitization, leather conditioning, dashboard restoration, glass polishing, and premium tire dressing — all curated for a refined tactile experience.",
+      "Complete vacuuming, steam sanitization, leather conditioning, dashboard restoration, and premium tire finish.",
     image: wheel1,
-    bg: "bg-neutral-900",
   },
   {
     title: "Auto Detailing",
     desc: "Luxury-grade paint correction & ceramic shielding.",
     details:
-      "Multi-stage machine polishing eliminates swirl marks and oxidation while nano-ceramic coating bonds at molecular level — delivering unmatched gloss depth and 2–5 years of protection.",
+      "Multi-stage polishing removes swirl marks while nano-ceramic coating delivers deep gloss and long-term protection.",
     image: wheel2,
-    bg: "bg-neutral-950",
   },
   {
     title: "Complete Wash",
     desc: "Total surface restoration for showroom depth.",
     details:
-      "An immersive restoration package combining gloss amplification, trim rejuvenation, wheel decontamination, interior refinement, odor neutralization, and advanced surface sealing technology.",
+      "Gloss enhancement, trim rejuvenation, odor neutralization, interior refinement, and advanced surface sealing.",
     image: detailing,
-    bg: "bg-neutral-900",
   },
 ];
 
@@ -47,150 +43,92 @@ const Services = () => {
     <>
       <Navbar />
 
-      {/* ================= HERO BANNER ================= */}
-      <section className="relative h-screen bg-black text-white flex items-center justify-center text-center overflow-hidden">
-
-        {/* Animated Radial Glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_60%)] animate-pulse" />
-
-        {/* Dark Gradient Layer */}
-        <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-black to-neutral-950 opacity-90" />
-
-        {/* Parallax Background */}
-        <motion.img
-          src={ceramic}
-          initial={{ scale: 1.2 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2 }}
-          className="absolute inset-0 w-full h-full object-cover opacity-20"
-        />
-
-        {/* Content */}
+      {/* ================= HERO ================= */}
+      <section className="bg-white pt-28 pb-20 px-6 md:px-16 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2 }}
-          className="relative z-10 max-w-5xl px-6"
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl mx-auto"
         >
-          <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight leading-tight">
-            Future of
-            <br />
-            <span className="bg-gradient-to-r from-white to-gray-500 bg-clip-text text-transparent">
-              Automotive Detailing
-            </span>
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900">
+            Premium Automotive Care
           </h1>
 
-          <p className="mt-8 text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            Precision engineering meets refined craftsmanship.
-            Experience next-generation car care technology.
+          <p className="mt-5 text-gray-500 text-lg leading-relaxed">
+            Precision detailing services designed to protect, restore,
+            and elevate your vehicle.
           </p>
-
-          <div className="mt-12 flex justify-center gap-6">
-            <button className="px-12 py-4 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition shadow-2xl">
-              Explore Services
-            </button>
-
-            <button className="px-12 py-4 border border-white/20 rounded-full hover:bg-white hover:text-black transition backdrop-blur-xl">
-              Book Appointment
-            </button>
-          </div>
         </motion.div>
-
-        {/* Bottom Fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
       </section>
 
-      {/* ================= SERVICE SECTIONS ================= */}
-      {services.map((service, index) => (
-        <section
-          key={index}
-          className={`relative min-h-screen ${service.bg} text-white flex items-center overflow-hidden`}
-        >
-          {/* Background Image */}
-          <motion.img
-            src={service.image}
-            alt={service.title}
-            initial={{ scale: 1.1 }}
-            whileInView={{ scale: 1 }}
-            transition={{ duration: 1.5 }}
-            className="absolute right-0 top-0 h-full w-full md:w-1/2 object-cover opacity-30"
-          />
-
-          {/* Content Container */}
-          <div className="max-w-7xl mx-auto px-8 md:px-16 grid md:grid-cols-2 gap-20 items-center relative z-10">
-
-            {/* LEFT CONTENT */}
-            <motion.div
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9 }}
+      {/* ================= SERVICES ================= */}
+      <section className="bg-white pb-24 px-6 md:px-16">
+        <div className="max-w-6xl mx-auto space-y-24">
+          {services.map((service, index) => (
+            <div
+              key={index}
+              className="grid md:grid-cols-2 gap-12 items-center"
             >
-              <h2 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
-                {service.title}
-              </h2>
+              {/* IMAGE */}
+              <motion.div
+                initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7 }}
+                className={index % 2 !== 0 ? "md:order-2" : ""}
+              >
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="rounded-xl object-cover w-full h-[380px]"
+                />
+              </motion.div>
 
-              <p className="mt-8 text-gray-300 text-lg leading-relaxed">
-                {service.desc}
-              </p>
+              {/* CONTENT */}
+              <motion.div
+                initial={{ opacity: 0, x: index % 2 === 0 ? 40 : -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7 }}
+                className="max-w-lg"
+              >
+                <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
+                  {service.title}
+                </h2>
 
-              <p className="mt-6 text-gray-400 leading-relaxed max-w-xl">
-                {service.details}
-              </p>
+                <p className="mt-5 text-gray-600 text-lg leading-relaxed">
+                  {service.desc}
+                </p>
 
-              <div className="mt-10 flex gap-6">
-                <button className="px-10 py-4 bg-white text-black rounded-full hover:bg-gray-200 transition shadow-xl">
-                  Book Now
+                <p className="mt-3 text-gray-500 leading-relaxed">
+                  {service.details}
+                </p>
+
+                <button className="mt-6 px-7 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition">
+                  Book Service
                 </button>
+              </motion.div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-                <button className="px-10 py-4 border border-white/20 rounded-full hover:bg-white hover:text-black transition">
-                  Learn More
-                </button>
-              </div>
-            </motion.div>
-
-            {/* RIGHT GLASS PANEL */}
-            <motion.div
-              initial={{ opacity: 0, x: 80 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1 }}
-              className="hidden md:block"
-            >
-              <div className="bg-white/5 backdrop-blur-2xl border border-white/10 p-10 rounded-3xl shadow-2xl">
-                <h4 className="text-xl font-semibold mb-6 text-white">
-                  Premium Highlights
-                </h4>
-
-                <ul className="space-y-4 text-gray-300 text-sm">
-                  <li>• Advanced Surface Protection</li>
-                  <li>• Paint-Safe Techniques</li>
-                  <li>• Nano-Ceramic Shielding</li>
-                  <li>• Interior Steam Sanitization</li>
-                  <li>• Professional Grade Equipment</li>
-                  <li>• Luxury Finish Standards</li>
-                </ul>
-              </div>
-            </motion.div>
-
-          </div>
-        </section>
-      ))}
-
-      {/* ================= FINAL CTA ================= */}
-      <section className="relative bg-black text-white py-40 text-center">
+      {/* ================= CTA ================= */}
+      <section className="bg-gray-50 py-20 text-center px-6">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-2xl mx-auto"
         >
-          <h2 className="text-5xl md:text-6xl font-bold">
-            Elevate Your Drive.
+          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
+            Ready to Elevate Your Drive?
           </h2>
 
-          <p className="text-gray-400 mt-6 text-lg">
-            Experience next-generation automotive refinement.
+          <p className="text-gray-600 mt-4 text-lg">
+            Experience refined automotive detailing tailored to perfection.
           </p>
 
-          <button className="mt-10 bg-white text-black px-12 py-4 rounded-full text-lg shadow-2xl hover:bg-gray-200 transition">
+          <button className="mt-8 bg-black text-white px-9 py-3 rounded-full hover:bg-gray-800 transition">
             Schedule Appointment
           </button>
         </motion.div>

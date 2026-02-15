@@ -6,132 +6,92 @@ import detailing from "../assets/wheel.jpg";
 
 const services = [
   {
-    title: "CERAMIC\nCOATING",
+    title: "CERAMIC COATING",
     image: ceramic,
     description:
       "Advanced nano-ceramic protection that enhances gloss, repels contaminants, and preserves your vehicle’s paint for years.",
-    features: [
-      "UV & Oxidation Protection",
-      "Hydrophobic Surface Shield",
-      "Long-Lasting Gloss Finish",
-    ],
   },
   {
-    title: "WHEEL\nSCRATCH\nREPAIR",
+    title: "WHEEL SCRATCH REPAIR",
     image: wheel1,
     description:
-      "Precision alloy wheel restoration that removes scratches, curb rash, and surface imperfections.",
-    features: [
-      "Scratch & Curb Damage Repair",
-      "Color Matching Refinishing",
-      "Protective Clear Coating",
-    ],
+      "Precision alloy wheel restoration that removes scratches and curb damage.",
   },
   {
-    title: "INTERIOR\nDETAILING",
+    title: "INTERIOR DETAILING",
     image: wheel2,
     description:
-      "Deep interior restoration that revitalizes leather, fabric, and trim for a refined luxury experience.",
-    features: [
-      "Leather Conditioning",
-      "Deep Vacuum Extraction",
-      "Dashboard UV Protection",
-    ],
+      "Deep interior restoration that revitalizes leather, fabric, and trim.",
   },
   {
-    title: "EXTERIOR\nDETAILING",
+    title: "EXTERIOR DETAILING",
     image: detailing,
     description:
-      "Comprehensive exterior cleaning and polishing designed to restore showroom brilliance.",
-    features: [
-      "Paint Decontamination",
-      "Machine Polishing",
-      "Protective Surface Sealant",
-    ],
+      "Comprehensive exterior cleaning and polishing for showroom brilliance.",
   },
 ];
 
-
 const ServicesSection = () => {
   return (
-    <section className="bg-black text-white py-32 px-6 md:px-16 overflow-hidden">
-
+    <section className="bg-white py-24 px-6 md:px-20">
+      
       {/* Heading */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="max-w-6xl mx-auto mb-24"
+        viewport={{ once: true }}
+        className="max-w-6xl mx-auto mb-16"
       >
-        <p className="uppercase tracking-[0.3em] text-xs text-orange-500 mb-6">
+        <p className="uppercase tracking-[0.4em] text-xs text-neutral-400 mb-4">
           Our Expertise
         </p>
 
-        <h2 className="text-5xl md:text-7xl font-bold leading-[1.05] max-w-4xl">
-          Precision Detailing
-          <br />
-          For Every Surface.
+        <h2 className="text-4xl md:text-6xl font-light leading-tight text-black">
+          Precision Detailing.
+          Crafted for Excellence.
         </h2>
       </motion.div>
 
-      {/* Layout */}
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
-
+      {/* Compact Grid */}
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
         {services.map((service, index) => (
-  <motion.div
-    key={index}
-    initial={{ opacity: 0, y: 60 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: index * 0.1 }}
-    className="group relative overflow-hidden rounded-[40px]"
-  >
-    {/* Image */}
-    <div className="relative overflow-hidden">
-      <motion.img
-        src={service.image}
-        alt={service.title}
-        className="w-full h-[520px] object-cover transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
-      />
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            className="group"
+          >
+            {/* Image */}
+            <div className="overflow-hidden rounded-2xl">
+              <motion.img
+                src={service.image}
+                alt={service.title}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.6 }}
+                className="w-full h-[380px] object-cover"
+              />
+            </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
-    </div>
+            {/* Content */}
+            <div className="mt-6">
+              <h3 className="text-xl md:text-2xl font-medium text-black">
+                {service.title}
+              </h3>
 
-    {/* Content Overlay */}
-    <div className="absolute bottom-10 left-10 right-10">
+              <p className="mt-3 text-neutral-600 leading-relaxed text-sm md:text-base">
+                {service.description}
+              </p>
 
-      <h3 className="text-4xl md:text-5xl font-bold whitespace-pre-line leading-tight tracking-tight">
-        {service.title}
-      </h3>
-
-      {/* Description */}
-      <p className="mt-6 text-white/70 max-w-md leading-relaxed">
-        {service.description}
-      </p>
-
-      {/* Features */}
-      <ul className="mt-6 space-y-2 text-sm text-white/60">
-        {service.features.map((feature, i) => (
-          <li key={i} className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 bg-orange-500 rounded-full" />
-            {feature}
-          </li>
+              <button className="mt-4 text-sm uppercase tracking-widest text-black border-b border-black pb-1 hover:opacity-60 transition">
+                Discover →
+              </button>
+            </div>
+          </motion.div>
         ))}
-      </ul>
-
-      {/* Divider */}
-      <div className="mt-6 h-[1px] w-0 bg-white transition-all duration-500 group-hover:w-24" />
-
-      <button className="mt-6 text-sm uppercase tracking-widest text-gray-300 hover:text-white transition">
-        Explore →
-      </button>
-    </div>
-  </motion.div>
-))}
-
-
       </div>
-
     </section>
   );
 };

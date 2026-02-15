@@ -60,21 +60,21 @@ The result is a mirror-like showroom finish.
 `,
   },
   {
-    title: "Paint Correction Explained",
-    category: "Detailing",
+    title: "Advanced Paint Protection",
+    category: "Protection",
     image:
-      "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1603386329225-868f9c3c17f8?q=80&w=1600&auto=format&fit=crop",
     description:
-      "Remove swirl marks and restore paint clarity with precision polishing.",
+      "Modern protection solutions designed for long-term gloss retention.",
     content: `
-Paint correction removes imperfections like swirl marks, scratches, and oxidation.
+Advanced paint protection preserves the vehicle’s finish from daily wear.
 
-Using multi-stage machine polishing:
-• Surface clarity is restored
-• Depth and gloss are enhanced
-• Protective coatings can be applied afterward
+Includes:
+• Protective film application
+• Ceramic layering
+• Hydrophobic enhancement
 
-The result is a mirror-like showroom finish.
+Designed for long-lasting brilliance and reduced maintenance.
 `,
   },
 ];
@@ -95,15 +95,15 @@ const HomeBlogSection = () => {
   };
 
   return (
-    <section className="bg-black text-white py-28 px-6 md:px-16 overflow-hidden">
-
+    <section className="bg-white text-black py-28 px-6 md:px-16 overflow-hidden">
+      
       {/* Header */}
       <div className="max-w-7xl mx-auto text-center mb-16">
         <h2 className="text-4xl md:text-6xl font-light tracking-tight">
-          From Our <span className="text-orange-500">Journal</span>
+          From Our Journal
         </h2>
 
-        <p className="mt-6 text-white/60 max-w-2xl mx-auto text-lg leading-relaxed">
+        <p className="mt-6 text-black/60 max-w-2xl mx-auto text-lg leading-relaxed">
           Stay ahead with expert insights from our detailing professionals.
           Explore in-depth guides on ceramic coating, paint protection,
           and premium interior restoration.
@@ -115,7 +115,9 @@ const HomeBlogSection = () => {
         <button
           onClick={prev}
           disabled={index === 0}
-          className="w-12 h-12 border border-white/20 rounded-full hover:bg-white hover:text-black transition disabled:opacity-30"
+          className="w-12 h-12 border border-black/20 rounded-full 
+                     hover:bg-black hover:text-white transition 
+                     disabled:opacity-30"
         >
           ←
         </button>
@@ -123,7 +125,9 @@ const HomeBlogSection = () => {
         <button
           onClick={next}
           disabled={index === maxIndex}
-          className="w-12 h-12 border border-white/20 rounded-full hover:bg-white hover:text-black transition disabled:opacity-30"
+          className="w-12 h-12 border border-black/20 rounded-full 
+                     hover:bg-black hover:text-white transition 
+                     disabled:opacity-30"
         >
           →
         </button>
@@ -138,20 +142,18 @@ const HomeBlogSection = () => {
           style={{ width: `${(blogs.length / visibleCards) * 100}%` }}
         >
           {blogs.map((blog, i) => (
-            <div
-              key={i}
-              className="w-full md:w-1/3 flex-shrink-0 group"
-            >
+            <div key={i} className="w-full md:w-1/3 flex-shrink-0 group">
+
               <div className="relative overflow-hidden rounded-[28px]">
                 <img
                   src={blog.image}
                   alt={blog.title}
-                  className="w-full h-72 object-cover"
+                  className="w-full h-72 object-cover transition duration-500 group-hover:scale-105"
                 />
               </div>
 
               <div className="mt-6">
-                <span className="text-xs tracking-widest text-orange-500 uppercase">
+                <span className="text-xs tracking-widest text-black/40 uppercase">
                   {blog.category}
                 </span>
 
@@ -159,56 +161,53 @@ const HomeBlogSection = () => {
                   {blog.title}
                 </h3>
 
-                {/* Description */}
-                <p className="mt-4 text-white/60 text-sm leading-relaxed">
+                <p className="mt-4 text-black/60 text-sm leading-relaxed">
                   {blog.description}
                 </p>
 
-                {/* Read More */}
                 <button
                   onClick={() => setSelectedBlog(blog)}
-                  className="mt-6 px-6 py-2 border border-white/30 rounded-full hover:bg-white hover:text-black transition"
+                  className="mt-6 px-6 py-2 border border-black/30 rounded-full 
+                             hover:bg-black hover:text-white transition"
                 >
                   Read More →
                 </button>
               </div>
+
             </div>
           ))}
         </motion.div>
       </div>
 
-      {/* ================= MODAL ================= */}
+      {/* Modal */}
       <AnimatePresence>
         {selectedBlog && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/95 z-50 overflow-y-auto"
+            className="fixed inset-0 bg-white z-50 overflow-y-auto"
           >
-            <div className="max-w-4xl mx-auto px-6 py-20 text-white relative">
+            <div className="max-w-4xl mx-auto px-6 py-20 text-black relative">
 
-              {/* Close Button */}
               <button
                 onClick={() => setSelectedBlog(null)}
-                className="absolute top-8 right-8 text-3xl font-light hover:text-orange-500 transition"
+                className="absolute top-8 right-8 text-3xl font-light hover:opacity-60 transition"
               >
                 ✕
               </button>
 
-              {/* Hero Image */}
               <img
                 src={selectedBlog.image}
+                alt={selectedBlog.title}
                 className="w-full h-[450px] object-cover rounded-[30px]"
               />
 
-              {/* Title */}
               <h1 className="mt-12 text-4xl md:text-5xl font-light">
                 {selectedBlog.title}
               </h1>
 
-              {/* Full Content */}
-              <div className="mt-12 text-white/70 leading-relaxed text-lg whitespace-pre-line">
+              <div className="mt-12 text-black/70 leading-relaxed text-lg whitespace-pre-line">
                 {selectedBlog.content}
               </div>
 

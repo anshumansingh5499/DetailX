@@ -42,85 +42,75 @@ const Blogs = () => {
       <Navbar />
 
       {/* ================= HERO ================= */}
-      <section className="relative h-screen bg-black text-white flex items-center overflow-hidden">
+      <section className="bg-white text-black pt-32 pb-24 px-6 md:px-12 border-b border-gray-200">
+        <div className="max-w-6xl mx-auto">
 
-        <motion.img
-          src={blog1}
-          initial={{ scale: 1.2 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2 }}
-          className="absolute inset-0 w-full h-full object-cover opacity-30"
-        />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/80 to-black" />
-
-        <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12">
           <motion.h1
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-6xl md:text-8xl font-bold leading-tight"
+            transition={{ duration: 0.8 }}
+            className="text-5xl md:text-7xl font-bold leading-tight tracking-tight"
           >
-            Automotive
-            <br />
-            <span className="text-white/60">Journal</span>
+            Automotive Journal
           </motion.h1>
 
-          <p className="mt-8 text-gray-400 text-lg max-w-xl">
-            Expert detailing insights, maintenance strategies,
-            and performance care guidance.
+          <p className="mt-6 text-gray-600 text-lg max-w-2xl leading-relaxed">
+            A curated collection of premium detailing insights,
+            maintenance strategies, and professional vehicle care knowledge.
           </p>
+
         </div>
       </section>
 
       {/* ================= FEATURED ARTICLE ================= */}
-      <section className="bg-black text-white py-32 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <section className="bg-white py-28 px-6 md:px-12">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
 
           {/* Image */}
           <motion.div
-            initial={{ opacity: 0, x: -60 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="rounded-3xl overflow-hidden shadow-2xl"
+            className="rounded-xl overflow-hidden shadow-md"
           >
             <img
               src={blogs[0].image}
               alt={blogs[0].title}
-              className="w-full h-[500px] object-cover"
+              className="w-full h-[480px] object-cover"
             />
           </motion.div>
 
           {/* Content */}
           <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="uppercase text-sm tracking-widest text-gray-400">
+            <span className="uppercase text-xs tracking-widest text-gray-500">
               Featured • {blogs[0].category}
             </span>
 
-            <h2 className="text-4xl md:text-5xl font-bold mt-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-semibold mt-6 leading-snug">
               {blogs[0].title}
             </h2>
 
             <div className="flex items-center gap-6 text-gray-500 text-sm mt-6">
               <div className="flex items-center gap-2">
-                <Calendar size={16} />
+                <Calendar size={15} />
                 {blogs[0].date}
               </div>
               <div className="flex items-center gap-2">
-                <Clock size={16} />
+                <Clock size={15} />
                 {blogs[0].readTime}
               </div>
             </div>
 
-            <p className="text-gray-400 mt-8 leading-relaxed">
+            <p className="text-gray-600 mt-8 leading-relaxed">
               {blogs[0].description}
             </p>
 
-            <button className="mt-10 px-10 py-4 bg-white text-black rounded-full hover:bg-gray-200 transition">
+            <button className="mt-8 px-8 py-3 border border-black rounded-full 
+                               hover:bg-black hover:text-white transition duration-300">
               Read Full Article
             </button>
           </motion.div>
@@ -129,66 +119,67 @@ const Blogs = () => {
       </section>
 
       {/* ================= CATEGORY FILTER ================= */}
-      <section className="bg-black px-6 md:px-12 pb-16">
-        <div className="max-w-6xl mx-auto flex flex-wrap gap-4">
+      <section className="bg-white px-6 md:px-12 pb-20">
+        <div className="max-w-6xl mx-auto flex flex-wrap gap-4 border-b border-gray-200 pb-10">
+
           {["All", "Maintenance", "Detailing", "Protection"].map(
             (category, index) => (
               <button
                 key={index}
-                className="px-6 py-2 rounded-full bg-white/10 backdrop-blur-xl 
-                           border border-white/10 text-white text-sm 
-                           hover:bg-white hover:text-black transition"
+                className="px-5 py-2 text-sm border border-gray-300 
+                           rounded-full hover:border-black 
+                           hover:bg-black hover:text-white transition"
               >
                 {category}
               </button>
             )
           )}
+
         </div>
       </section>
 
       {/* ================= BLOG GRID ================= */}
-      <section className="bg-black px-6 md:px-12 pb-32">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <section className="bg-white px-6 md:px-12 pb-32">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-16">
 
           {blogs.slice(1).map((blog, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 80 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
-              whileHover={{ y: -10 }}
-              className="bg-white/5 backdrop-blur-2xl border border-white/10 
-                         rounded-3xl overflow-hidden shadow-xl"
+              whileHover={{ y: -6 }}
+              className="group"
             >
-              <div className="h-64 overflow-hidden">
+              <div className="overflow-hidden rounded-xl">
                 <img
                   src={blog.image}
                   alt={blog.title}
-                  className="w-full h-full object-cover hover:scale-110 transition duration-700"
+                  className="w-full h-64 object-cover transition duration-500 group-hover:scale-105"
                 />
               </div>
 
-              <div className="p-8 text-white">
-                <span className="text-sm text-gray-400 uppercase">
+              <div className="mt-6">
+                <span className="text-xs uppercase tracking-wider text-gray-500">
                   {blog.category}
                 </span>
 
-                <h3 className="text-xl font-semibold mt-3">
+                <h3 className="text-xl font-semibold mt-2 leading-snug">
                   {blog.title}
                 </h3>
 
                 <div className="flex items-center gap-4 text-gray-500 text-sm mt-3">
-                  <Calendar size={16} />
+                  <Calendar size={14} />
                   {blog.date}
-                  <Clock size={16} />
+                  <Clock size={14} />
                   {blog.readTime}
                 </div>
 
-                <p className="text-gray-400 mt-4 text-sm">
+                <p className="text-gray-600 mt-4 text-sm leading-relaxed">
                   {blog.description}
                 </p>
 
-                <button className="mt-6 text-white hover:underline">
+                <button className="mt-5 text-black font-medium group-hover:underline">
                   Read Article →
                 </button>
               </div>
@@ -199,23 +190,25 @@ const Blogs = () => {
       </section>
 
       {/* ================= NEWSLETTER ================= */}
-      <section className="bg-neutral-950 text-white py-32 px-6 md:px-12 text-center">
+      <section className="bg-gray-50 text-black py-24 px-6 md:px-12 border-t border-gray-200 text-center">
 
-        <h2 className="text-4xl md:text-5xl font-bold">
+        <h2 className="text-3xl md:text-4xl font-semibold">
           Join Our Automotive Circle
         </h2>
 
-        <p className="text-gray-400 mt-6 max-w-xl mx-auto">
-          Exclusive insights, detailing techniques, and luxury care updates.
+        <p className="text-gray-600 mt-4 max-w-xl mx-auto">
+          Get expert detailing advice and premium care techniques delivered monthly.
         </p>
 
-        <div className="mt-10 flex flex-col md:flex-row justify-center gap-4">
+        <div className="mt-8 flex flex-col md:flex-row justify-center gap-4">
           <input
             type="email"
             placeholder="Enter your email"
-            className="px-6 py-4 rounded-full w-80 text-black focus:outline-none"
+            className="px-6 py-3 rounded-full w-80 border border-gray-300 
+                       focus:outline-none focus:border-black"
           />
-          <button className="bg-white text-black px-10 py-4 rounded-full hover:bg-gray-200 transition">
+          <button className="bg-black text-white px-8 py-3 rounded-full 
+                             hover:bg-gray-800 transition">
             Subscribe
           </button>
         </div>

@@ -10,10 +10,9 @@ const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  /* Detect Scroll for Glass Effect */
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 10);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -23,82 +22,82 @@ const Navbar = () => {
   return (
     <>
       {/* ================= NAVBAR ================= */}
-     <nav
-  className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 
-  flex justify-between items-center
-  px-6 md:px-12 py-4
-  ${
-    scrolled
-      ? "backdrop-blur-2xl bg-black/60 border-b border-white/10"
-      : "bg-transparent"
-  }`}
->
-  {/* ================= MOBILE NAV DESIGN ================= */}
-  <div className="md:hidden w-full flex justify-between items-center bg-white/10 text-black px-4 py-3 rounded-full">
-
-    {/* Logo */} <Link to="/" className="flex items-center"> <img src={logo} alt="DetailXAuto Logo" className="h-8 md:h-10 w-auto object-contain" /> </Link>
-
-    {/* Circular Menu Button */}
-    <button
-      onClick={() => setMobileMenu(!mobileMenu)}
-      className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md"
-    >
-      {mobileMenu ? <X size={20} /> : <Menu size={20} />}
-    </button>
-  </div>
-
-  {/* ================= DESKTOP NAV (UNCHANGED) ================= */}
-  <div className="hidden md:flex w-full justify-between items-center">
-
-    {/* Logo */}
-    <Link to="/" className="flex items-center">
-      <img
-        src={logo}
-        alt="DetailXAuto Logo"
-        className="h-8 md:h-10 w-auto object-contain"
-      />
-    </Link>
-
-    {/* Desktop Menu */}
-    <div className="flex items-center gap-10 text-white relative">
-      {["Home", "About", "Services", "Blogs"].map((item, index) => (
-        <Link
-          key={index}
-          to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-          className="relative group text-sm tracking-wide"
-        >
-          {item}
-          <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full" />
-        </Link>
-      ))}
-
-      <button
-        onClick={() => setOpen(true)}
-        className="ml-6 px-6 py-2 border border-white/20 rounded-full hover:bg-white hover:text-black transition backdrop-blur-xl"
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 
+        backdrop-blur-xl 
+        ${
+          scrolled
+            ? "bg-black/70 shadow-lg"
+            : "bg-black/50"
+        }`}
       >
-        Book Now
-      </button>
-    </div>
-  </div>
-</nav>
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 relative flex items-center justify-between">
 
+          {/* LEFT: Logo */}
+          <Link to="/" className="flex items-center z-20">
+            <img
+              src={logo}
+              alt="DetailXAuto Logo"
+              className="h-8 md:h-10 w-auto object-contain"
+            />
+          </Link>
 
-      {/* ================= MOBILE FULLSCREEN MENU ================= */}
+          {/* CENTER: Desktop Menu */}
+          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-12 text-white">
+            {["Home", "About", "Services", "Blogs"].map((item, index) => (
+              <Link
+                key={index}
+                to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                className="relative text-sm tracking-wide group"
+              >
+                {item}
+                <span className="absolute left-0 -bottom-1 w-0 h-[1.5px] bg-white transition-all duration-300 group-hover:w-full" />
+              </Link>
+            ))}
+          </div>
+
+          {/* RIGHT: Button */}
+          <div className="hidden md:flex">
+            <button
+              onClick={() => setOpen(true)}
+              className="px-6 py-2 border border-white/40 rounded-full 
+                         text-white hover:bg-white hover:text-black 
+                         transition duration-300"
+            >
+              Book Now
+            </button>
+          </div>
+
+          {/* MOBILE BUTTON */}
+          <button
+            onClick={() => setMobileMenu(!mobileMenu)}
+            className="md:hidden w-10 h-10 border border-white/40 
+                       rounded-full flex items-center justify-center 
+                       text-white"
+          >
+            {mobileMenu ? <X size={20} /> : <Menu size={20} />}
+          </button>
+
+        </div>
+      </nav>
+
+      {/* ================= MOBILE MENU ================= */}
       <AnimatePresence>
         {mobileMenu && (
           <motion.div
-            initial={{ opacity: 0, y: -40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -40 }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 bg-black text-white flex flex-col items-center justify-center gap-10 text-2xl z-40 border-b border-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black text-white flex flex-col 
+                       items-center justify-center gap-12 text-2xl z-40"
           >
             {["Home", "About", "Services", "Blogs"].map((item, index) => (
               <Link
                 key={index}
                 to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
                 onClick={() => setMobileMenu(false)}
-                className="hover:text-white/60 transition"
+                className="hover:opacity-60 transition"
               >
                 {item}
               </Link>
@@ -109,7 +108,8 @@ const Navbar = () => {
                 setOpen(true);
                 setMobileMenu(false);
               }}
-              className="mt-6 px-8 py-3 border border-white rounded-full hover:bg-white hover:text-black transition"
+              className="mt-6 px-8 py-3 border border-white rounded-full 
+                         hover:bg-white hover:text-black transition"
             >
               Book Now
             </button>
