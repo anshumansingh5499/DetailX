@@ -4,6 +4,7 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa";
+import logo from "../../public/image.png";
 
 const Footer = () => {
   return (
@@ -14,9 +15,11 @@ const Footer = () => {
 
         {/* Brand */}
         <div className="mb-24">
-          <h2 className="text-6xl md:text-7xl font-bold tracking-tight">
-            Detail<span className="text-orange-500">X</span>
-          </h2>
+           <img
+    src={logo}
+    alt="DetailXAuto Logo"
+    className="h-8 md:h-10 w-auto object-contain"
+  />
           <p className="mt-6 text-gray-400 max-w-lg text-lg leading-relaxed">
             Premium automotive detailing studio delivering precision,
             protection, and perfection — redefining how vehicles are maintained.

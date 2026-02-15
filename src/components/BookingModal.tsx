@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
-const BookingModal = ({ close }: { close: () => void }) => {
+interface Props {
+  close: () => void;
+}
+
+const BookingModal = ({ close }: Props) => {
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -18,68 +22,100 @@ Phone: ${form.phone}
 Service: ${form.service}
 Date: ${form.date}`;
 
-    const whatsappURL = `https://wa.me/${ownerNumber}?text=${encodeURIComponent(message)}`;
+    const whatsappURL = `https://wa.me/${ownerNumber}?text=${encodeURIComponent(
+      message
+    )}`;
 
     window.open(whatsappURL, "_blank");
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex justify-center items-center z-50">
+    <AnimatePresence>
+      <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50">
 
-      <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        className="bg-gradient-to-br from-gray-900 to-black border border-white/10 
-                   p-10 rounded-3xl w-[420px] relative shadow-[0_0_80px_rgba(255,115,0,0.3)]"
-      >
-        <button
-          onClick={close}
-          className="absolute right-6 top-4 text-gray-400 hover:text-white"
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 40 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="relative w-[90%] max-w-md bg-white/5 border border-white/10 
+                     rounded-3xl p-10 shadow-2xl"
         >
-          ✕
-        </button>
-
-        <h2 className="text-2xl font-bold mb-6 text-white">
-          Book Your Service
-        </h2>
-
-        <div className="space-y-4">
-          <input
-            type="text"
-            placeholder="Your Name"
-            className="w-full bg-white/10 border border-white/10 p-3 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-orange-500"
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-          />
-
-          <input
-            type="tel"
-            placeholder="Phone Number"
-            className="w-full bg-white/10 border border-white/10 p-3 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-orange-500"
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
-          />
-
-          <input
-            type="text"
-            placeholder="Service Required"
-            className="w-full bg-white/10 border border-white/10 p-3 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-orange-500"
-            onChange={(e) => setForm({ ...form, service: e.target.value })}
-          />
-
-          <input
-            type="date"
-            className="w-full bg-white/10 border border-white/10 p-3 rounded-xl text-white focus:outline-none focus:border-orange-500"
-            onChange={(e) => setForm({ ...form, date: e.target.value })}
-          />
-
+          {/* Close */}
           <button
-            onClick={handleSubmit}
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-full mt-4 transition"
+            onClick={close}
+            className="absolute top-6 right-6 text-white/50 hover:text-white transition"
           >
-            Submit & Send to WhatsApp
+            ✕
           </button>
-        </div>
-      </motion.div>
-    </div>
+
+          {/* Title */}
+          <h2 className="text-3xl font-light tracking-tight text-white">
+            Book Appointment
+          </h2>
+
+          <p className="text-sm text-white/50 mt-2 mb-8">
+            Experience precision detailing crafted to perfection.
+          </p>
+
+          {/* Form */}
+          <div className="space-y-5">
+
+            <input
+              type="text"
+              placeholder="Full Name"
+              className="w-full bg-transparent border-b border-white/20 
+                         py-3 text-white placeholder-white/40 
+                         focus:outline-none focus:border-white transition"
+              onChange={(e) =>
+                setForm({ ...form, name: e.target.value })
+              }
+            />
+
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              className="w-full bg-transparent border-b border-white/20 
+                         py-3 text-white placeholder-white/40 
+                         focus:outline-none focus:border-white transition"
+              onChange={(e) =>
+                setForm({ ...form, phone: e.target.value })
+              }
+            />
+
+            <input
+              type="text"
+              placeholder="Service Required"
+              className="w-full bg-transparent border-b border-white/20 
+                         py-3 text-white placeholder-white/40 
+                         focus:outline-none focus:border-white transition"
+              onChange={(e) =>
+                setForm({ ...form, service: e.target.value })
+              }
+            />
+
+            <input
+              type="date"
+              className="w-full bg-transparent border-b border-white/20 
+                         py-3 text-white 
+                         focus:outline-none focus:border-white transition"
+              onChange={(e) =>
+                setForm({ ...form, date: e.target.value })
+              }
+            />
+
+            <button
+              onClick={handleSubmit}
+              className="w-full mt-6 py-4 border border-white 
+                         rounded-full hover:bg-white hover:text-black 
+                         transition-all duration-500 tracking-wide"
+            >
+              Confirm Booking
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    </AnimatePresence>
   );
 };
 

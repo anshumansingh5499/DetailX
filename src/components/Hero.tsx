@@ -1,178 +1,63 @@
-import heroCar from "../assets/hero-car.jpg";
-import badgeIcon from "../assets/car-icon.png";
-import heroCarmini from "../assets/mini-car.jpg";
+import { useState } from "react";
+import BookingModal from "./BookingModal";
+import heroVideo from "../assets/181537-866999852_medium.mp4";
 
 const Hero = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <section className="relative bg-black px-6 md:px-12 pt-10 pb-16 md:pb-24 overflow-hidden text-white">
+    <section className="relative h-screen w-full overflow-hidden text-white">
 
-      {/* Top Small Badge */}
-      <div className="flex items-center gap-3 mb-8 md:mb-10 mt-8">
-        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-lg p-2">
-          <img src={badgeIcon} alt="icon" className="w-5 h-5" />
-        </div>
-        <span className="bg-white/10 backdrop-blur-md border border-white/20 px-4 md:px-5 py-3 rounded-full text-xs md:text-sm shadow-md">
-          Book a car wash with INDIA’s largest car wash specialist
-        </span>
-      </div>
-
-      {/* Connect Button */}
-      <a
-        href="tel:+917080216257"
-        className="flex items-center justify-center absolute top-[50%] right-[-32px] origin-center rotate-90"
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
       >
-        <button
-          className="
-            px-3 py-2
-            text-xs font-semibold tracking-wide
-            bg-white
-            text-black
-            hover:scale-105
-            transition-all duration-300
-            shadow-lg
-          "
-        >
-          Connect Us
-        </button>
-      </a>
+        <source src={heroVideo} type="video/mp4" />
+      </video>
 
-      {/* Huge Background Text */}
-      <h1
-        className="
-        md:absolute md:top-32 md:left-1/2 md:-translate-x-1/2
-        w-full text-center
-        text-[18vw] md:text-[12vw]
-        font-black leading-none
-        tracking-tight
-        z-0 select-none
-        text-white/40
-        "
-      >
-        DRIVE PERFECTION
-      </h1>
-      
+      <div className="absolute inset-0 bg-black/60" />
 
-      {/* Desktop Floating Tags */}
-      <div className="hidden md:block absolute top-[210px] left-[70px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
-        Carwash
-      </div>
-      <div className="hidden md:block absolute top-[210px] left-[420px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
-        Ceramic
-      </div>
-      <div className="hidden md:block absolute top-[210px] right-[280px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
-        Car Shine
-      </div>
-      <div className="hidden md:block absolute top-[260px] left-[160px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
-        Shine
-      </div>
-      <div className="hidden md:block absolute top-[260px] right-[220px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
-        Wheel Scratch
-      </div>
-      <div className="hidden md:block absolute top-[260px] right-[80px] z-20 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs shadow">
-        Auto Detailing
-      </div>
+      <div className="relative z-10 flex flex-col justify-center h-full px-6 md:px-20">
 
-      {/* Mobile Tags */}
-      <div className="flex flex-wrap gap-2 mt-6 md:hidden">
-        {[
-          "Carwash",
-          "Ceramic",
-          "Car Shine",
-          "Shine",
-          "Wheel Scratch",
-          "Auto Detailing",
-        ].map((tag, index) => (
-          <span
-            key={index}
-            className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1 rounded-full text-xs"
+        <p className="uppercase tracking-[0.4em] text-xs text-orange-500 mb-6">
+          Premium Automotive Detailing
+        </p>
+
+        <h1 className="text-6xl md:text-8xl font-light leading-[0.95]">
+          Drive the Art of <br />
+          <span className="font-semibold">Perfection.</span>
+        </h1>
+ <p className="mt-8 text-base md:text-lg text-white/70 max-w-xl leading-relaxed">
+          Precision ceramic coating, elite paint correction,
+          and handcrafted interior restoration for those who
+          demand nothing but excellence.
+        </p>
+        <div className="mt-12 flex gap-6">
+
+          <button
+            onClick={() => setOpen(true)}
+            className="px-10 py-4 bg-white text-black rounded-full 
+                       hover:bg-white/80 transition-all duration-500"
           >
-            {tag}
-          </span>
-        ))}
-      </div>
+            Book Appointment
+          </button>
 
-      {/* HERO IMAGE */}
-      <div className="relative z-10 mt-12 md:mt-52 rounded-3xl overflow-hidden shadow-2xl">
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/40 z-10"></div>
+          <button
+            className="px-10 py-4 border border-white/40 rounded-full 
+                       hover:bg-white hover:text-black transition-all duration-500"
+          >
+            Discover More
+          </button>
 
-        <img
-          src={heroCar}
-          alt="Car"
-          className="w-full h-[350px] md:h-[520px] object-cover mt-[-120px]"
-        />
-
-        {/* LEFT CARD */}
-        <div
-          className="
-          relative z-20
-          md:absolute md:bottom-8 md:left-8
-          bg-white/10 backdrop-blur-xl border border-white/20
-          rounded-2xl p-6
-          w-full md:w-[480px]
-          shadow-2xl
-          flex flex-col md:flex-row gap-5
-          mt-6 md:mt-0
-          "
-        >
-          <div className="flex-1">
-            <h3 className="text-base md:text-lg font-semibold leading-snug mb-4 md:mb-6">
-              Our Customers are the most important part of our business
-            </h3>
-            <button className="text-sm font-medium text-orange-500 hover:underline">
-              Read More →
-            </button>
-          </div>
-
-          <img
-            src={heroCarmini}
-            alt="mini"
-            className="w-full md:w-32 h-32 object-cover rounded-xl"
-          />
-        </div>
-
-        {/* RIGHT CARD */}
-        <div
-          className="
-          relative z-20
-          md:absolute md:bottom-8 md:right-8
-          bg-white/10 backdrop-blur-xl border border-white/20
-          rounded-2xl p-6
-          w-full md:w-[280px]
-          shadow-2xl
-          mt-6 md:mt-0
-          "
-        >
-          <p className="text-xs text-gray-300 mb-4 leading-relaxed">
-            Our professional and reliable car cleaners provide thorough Car
-            Detailing & Interior Deep Cleaning.
-          </p>
-
-          <h2 className="text-3xl md:text-4xl font-bold mb-2 text-orange-500">
-            4.6
-          </h2>
-
-          <div className="flex items-center gap-2">
-            <div className="flex -space-x-2">
-              <img
-                src="https://i.pravatar.cc/40?img=1"
-                className="w-7 h-7 rounded-full border-2 border-black"
-              />
-              <img
-                src="https://i.pravatar.cc/40?img=2"
-                className="w-7 h-7 rounded-full border-2 border-black"
-              />
-              <img
-                src="https://i.pravatar.cc/40?img=3"
-                className="w-7 h-7 rounded-full border-2 border-black"
-              />
-            </div>
-            <span className="text-xs text-gray-400">
-              750+ happy clients
-            </span>
-          </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {open && <BookingModal close={() => setOpen(false)} />}
     </section>
   );
 };
