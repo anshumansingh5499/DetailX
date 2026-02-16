@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import ceramic from "../assets/ceramic.jpg";
 import wheel1 from "../assets/detailing.jpg";
 import wheel2 from "../assets/washing.jpg";
@@ -9,88 +10,102 @@ const services = [
     title: "CERAMIC COATING",
     image: ceramic,
     description:
-      "Advanced nano-ceramic protection that enhances gloss, repels contaminants, and preserves your vehicle’s paint for years.",
+      "Advanced nano-ceramic protection that enhances gloss and preserves paint for years.",
   },
   {
     title: "WHEEL SCRATCH REPAIR",
     image: wheel1,
     description:
-      "Precision alloy wheel restoration that removes scratches and curb damage.",
+      "Precision alloy wheel restoration removing scratches and curb damage.",
   },
   {
     title: "INTERIOR DETAILING",
     image: wheel2,
     description:
-      "Deep interior restoration that revitalizes leather, fabric, and trim.",
+      "Deep interior restoration that revitalizes leather and trim surfaces.",
   },
   {
     title: "EXTERIOR DETAILING",
     image: detailing,
     description:
-      "Comprehensive exterior cleaning and polishing for showroom brilliance.",
+      "Comprehensive exterior polishing for showroom brilliance.",
   },
 ];
 
 const ServicesSection = () => {
+  const [active, setActive] = useState(0);
+
   return (
-    <section className="bg-white py-24 px-6 md:px-20">
+    <section className="bg-black py-24 px-6 md:px-16 text-white">
       
       {/* Heading */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="max-w-6xl mx-auto mb-16"
-      >
+      <div className="max-w-7xl mx-auto mb-16">
         <p className="uppercase tracking-[0.4em] text-xs text-neutral-400 mb-4">
           Our Expertise
         </p>
 
-        <h2 className="text-4xl md:text-6xl font-light leading-tight text-black">
+        <h2 className="text-4xl md:text-6xl font-light leading-tight">
           Precision Detailing.
-          Crafted for Excellence.
+          <br /> Crafted for Excellence.
         </h2>
-      </motion.div>
+      </div>
 
-      {/* Compact Grid */}
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
-        {services.map((service, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: index * 0.1 }}
-            viewport={{ once: true }}
-            className="group"
-          >
-            {/* Image */}
-            <div className="overflow-hidden rounded-2xl">
-              <motion.img
+      {/* Expanding Cards */}
+      <div className="flex h-[500px] gap-4 max-w-7xl mx-auto">
+        {services.map((service, index) => {
+          const isActive = active === index;
+
+          return (
+            <motion.div
+              key={index}
+              onMouseEnter={() => setActive(index)}
+              className="relative rounded-2xl overflow-hidden cursor-pointer flex items-end transition-all duration-500"
+              animate={{
+                flex: isActive ? 3 : 1,
+              }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+            >
+              {/* Background Image */}
+              <img
                 src={service.image}
                 alt={service.title}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.6 }}
-                className="w-full h-[380px] object-cover"
+                className="absolute inset-0 w-full h-full object-cover"
               />
-            </div>
 
-            {/* Content */}
-            <div className="mt-6">
-              <h3 className="text-xl md:text-2xl font-medium text-black">
-                {service.title}
-              </h3>
+              {/* Dark Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
-              <p className="mt-3 text-neutral-600 leading-relaxed text-sm md:text-base">
-                {service.description}
-              </p>
+              {/* Content */}
+              <div className="relative p-8 z-10">
+                <h3 className="text-2xl md:text-3xl font-light tracking-wide">
+                  {service.title}
+                </h3>
 
-              <button className="mt-4 text-sm uppercase tracking-widest text-black border-b border-black pb-1 hover:opacity-60 transition">
-                Discover →
-              </button>
-            </div>
-          </motion.div>
-        ))}
+                {isActive && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="mt-4 text-sm text-neutral-300 max-w-sm"
+                  >
+                    {service.description}
+                  </motion.p>
+                )}
+
+                {isActive && (
+                  <motion.button
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="mt-6 text-sm uppercase tracking-widest border-b border-white pb-1 hover:opacity-70 transition"
+                  >
+                    Discover →
+                  </motion.button>
+                )}
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );

@@ -7,6 +7,7 @@ import Testimonials from "../components/Testimonials";
 import Footer from "../components/Footer";
 import ServicesAccordion from "../components/ServicesList";
 import HomeBlogSection from "../components/HomeBlogSection";
+import HomeServices from "../components/HomeServices";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
 
       <ServicesCards />
       <WashingSection />
+      <HomeServices/>
       {/* <Packages /> */}
       <HomeBlogSection/>
       <Testimonials />
