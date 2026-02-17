@@ -1,6 +1,6 @@
 import { useState } from "react";
 import BookingModal from "./BookingModal";
-import heroVideo from "../assets/181537-866999852_medium.mp4";
+import heroVideo from "../assets/6158134-hd_1920_1080_30fps.mp4";
 
 const Hero = () => {
   const [open, setOpen] = useState(false);

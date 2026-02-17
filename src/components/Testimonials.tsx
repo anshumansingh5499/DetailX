@@ -21,7 +21,10 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   return (
-    <section className="bg-white text-black py-36 px-6 md:px-16">
+    <section className="relative bg-[#f8f8f8] text-black py-40 px-6 md:px-16 overflow-hidden">
+
+      {/* Subtle Background Accent */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-black/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* Heading */}
       <motion.div
@@ -29,54 +32,56 @@ const TestimonialsSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="max-w-3xl mx-auto text-center mb-32"
+        className="relative max-w-4xl mx-auto text-center mb-28"
       >
-        <p className="uppercase tracking-[0.4em] text-xs text-black/40 mb-6">
+        <p className="uppercase tracking-[0.5em] text-xs text-black/40 mb-6">
           Client Experience
         </p>
 
         <h2 className="text-4xl md:text-6xl font-light tracking-tight leading-tight">
-          Words From Our Clients
+          What Our Clients Say
         </h2>
       </motion.div>
 
-      {/* Testimonials */}
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-20 items-start">
+      {/* Testimonials Grid */}
+      <div className="relative max-w-6xl mx-auto grid md:grid-cols-3 gap-12 items-stretch">
 
         {testimonials.map((item, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: index * 0.15 }}
+            transition={{ duration: 0.8, delay: index * 0.2 }}
             viewport={{ once: true }}
-            className={`relative ${
-              item.highlight ? "md:-mt-10" : ""
+            className={`relative p-10 transition-all duration-500 ${
+              item.highlight
+                ? "bg-white shadow-xl scale-105 z-10"
+                : "bg-transparent"
             }`}
           >
 
-            {/* Large Subtle Quote Mark */}
-            <div className="absolute -top-10 left-0 text-[120px] font-light text-black/5 leading-none select-none">
+            {/* Quote Mark */}
+            <div className="text-6xl text-black/10 mb-6 leading-none">
               “
             </div>
 
             {/* Quote Text */}
             <p
-              className={`relative text-lg leading-relaxed ${
+              className={`leading-relaxed ${
                 item.highlight
-                  ? "text-black text-xl md:text-2xl font-light"
-                  : "text-black/60"
+                  ? "text-xl md:text-2xl font-light text-black"
+                  : "text-base text-black/60"
               }`}
             >
               {item.text}
             </p>
 
             {/* Divider */}
-            <div className="w-12 h-[1px] bg-black/20 mt-10 mb-6" />
+            <div className="w-10 h-[1px] bg-black/20 my-10" />
 
-            {/* Name */}
+            {/* Name + Role */}
             <div>
-              <h4 className="text-base font-medium">
+              <h4 className="text-base font-medium tracking-wide">
                 {item.name}
               </h4>
               <p className="text-sm text-black/40 mt-1">
@@ -89,11 +94,13 @@ const TestimonialsSection = () => {
       </div>
 
       {/* Bottom CTA */}
-      <div className="text-center mt-32">
-        <button className="px-10 py-3 border border-black/30 rounded-full 
-                           text-sm tracking-widest 
-                           hover:bg-black hover:text-white 
-                           transition-all duration-500">
+      <div className="relative text-center mt-28">
+        <button
+          className="px-12 py-3 border border-black/30 
+                     text-sm tracking-[0.3em] 
+                     hover:bg-black hover:text-white 
+                     transition-all duration-500"
+        >
           VIEW ALL TESTIMONIALS
         </button>
       </div>

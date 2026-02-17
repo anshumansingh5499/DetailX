@@ -1,140 +1,119 @@
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValueEvent,
-  AnimatePresence,
-} from "framer-motion";
-import { useRef, useState } from "react";
+import { motion } from "framer-motion";
 
+// Replace these with your actual image paths
 import ceramic from "../assets/ceramic.jpg";
-import wheel1 from "../assets/detailing.jpg";
-import wheel2 from "../assets/washing.jpg";
-import detailing from "../assets/wheel.jpg";
+import ppf from "../assets/ppf.jpg";
+import wash from "../assets/wash.jpg";
+import interior from "../assets/interior.jpg";
+import engine from "../assets/engine.jpg";
 
-const services = [
-  {
-    title: "Express Exterior",
-    desc: "A precision foam wash system engineered for hydrophobic brilliance and refined gloss retention.",
-    details:
-      "Multi-stage exterior refinement ensuring safe-contact washing, paint-safe drying techniques, and advanced surface protection.",
-    image: ceramic,
-  },
-  {
-    title: "Full Service Wash",
-    desc: "Interior refinement meets exterior perfection.",
-    details:
-      "Deep vacuum extraction, dashboard conditioning, and curated tactile restoration for a premium cabin experience.",
-    image: wheel1,
-  },
-  {
-    title: "Auto Detailing",
-    desc: "Luxury-grade paint correction & ceramic shielding.",
-    details:
-      "Precision polishing and nano-ceramic coatings engineered for durability and gloss amplification.",
-    image: wheel2,
-  },
-  {
-    title: "Complete Wash",
-    desc: "Total surface restoration for showroom depth.",
-    details:
-      "A comprehensive detailing immersion combining gloss amplification and interior rejuvenation.",
-    image: detailing,
-  },
-];
-
-const ServicesPorsche = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const section = 1 / services.length;
-    const newIndex = Math.min(
-      services.length - 1,
-      Math.floor(latest / section)
-    );
-    setActive((prev) => (prev !== newIndex ? newIndex : prev));
-  });
-
-  const progressHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
+export default function ServicesSection() {
   return (
-    <section
-      ref={containerRef}
-      className="relative h-[400vh] bg-white "
-    >
-      <div className="sticky top-0 h-screen flex flex-col md:flex-row items-center justify-center px-6 md:px-24 py-10">
+    <section className="bg-gray-100 py-20 px-6 md:px-16">
+      <div className="max-w-7xl mx-auto space-y-12">
 
-        {/* Vertical Progress Indicator */}
-        <div className="hidden md:block absolute left-20 top-1/2 -translate-y-1/2 h-72 w-[1px] bg-black/10">
-          <motion.div
-            style={{ height: progressHeight }}
-            className="w-full bg-black origin-top"
+        {/* TOP ROW */}
+        <div className="grid md:grid-cols-3 gap-8">
+
+          {/* Large Featured Card */}
+          <ServiceCard
+            title="Ceramic Coating"
+            subtitle="Advanced nano-protection engineered for superior gloss, durability, and hydrophobic performance."
+            image={ceramic}
+            className="md:col-span-2 h-[440px]"
+          />
+
+          {/* Secondary Featured Card */}
+          <ServiceCard
+            title="Paint Protection Film (PPF)"
+            subtitle="Precision-installed transparent shield for impact resistance and long-term paint preservation."
+            image={ppf}
+            className="h-[440px]"
           />
         </div>
 
-        {/* LEFT IMAGE */}
-        <div className="w-full md:w-1/2 h-[55vh] md:h-[75vh] relative overflow-hidden rounded-[32px] mb-10 md:mb-0">
-          <AnimatePresence mode="wait">
-            <motion.img
-              key={active}
-              src={services[active].image}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          </AnimatePresence>
-        </div>
+        {/* BOTTOM ROW */}
+        <div className="grid md:grid-cols-3 gap-8">
 
-        {/* RIGHT CONTENT */}
-        <div className="w-full md:w-1/2 text-black md:pl-28">
+          <ServiceCard
+            title="Premium Wash"
+            subtitle="Safe-contact exterior wash with refined drying techniques for a flawless finish."
+            image={wash}
+            className="h-[420px]"
+          />
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8 }}
-            >
-              <p className="uppercase tracking-[0.4em] text-xs text-black/40 mb-8">
-                Service {active + 1}
-              </p>
+          <ServiceCard
+            title="Interior Detailing"
+            subtitle="Deep cabin restoration including steam cleaning, conditioning, and vacuum extraction."
+            image={interior}
+            className="h-[420px]"
+          />
 
-              <h2 className="text-4xl md:text-6xl font-light tracking-tight leading-[1.05]">
-                {services[active].title}
-              </h2>
-
-              <p className="mt-8 text-lg text-black/80 max-w-xl leading-relaxed">
-                {services[active].desc}
-              </p>
-
-              <p className="mt-6 text-sm text-black/50 max-w-xl leading-relaxed">
-                {services[active].details}
-              </p>
-
-              <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.98 }}
-                className="mt-12 px-10 py-4 border border-black/30 rounded-full tracking-widest text-sm
-                           hover:bg-black hover:text-white transition-all duration-700"
-              >
-                DISCOVER
-              </motion.button>
-            </motion.div>
-          </AnimatePresence>
+          <ServiceCard
+            title="Engine Bay Cleaning"
+            subtitle="Carefully degreased and detailed for a clean, factory-finish presentation."
+            image={engine}
+            className="h-[420px]"
+          />
 
         </div>
+
       </div>
     </section>
   );
-};
+}
 
-export default ServicesPorsche;
+/* ============================= */
+/*        CARD COMPONENT         */
+/* ============================= */
+
+function ServiceCard({
+  title,
+  subtitle,
+  image,
+  className,
+}: {
+  title: string;
+  subtitle: string;
+  image: string;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.4 }}
+      className={`relative overflow-hidden bg-black shadow-md ${className}`}
+    >
+      {/* Background Image */}
+      <img
+        src={image}
+        alt={title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 hover:scale-105"
+      />
+
+      {/* Dark Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+
+      {/* Text Content */}
+      <div className="absolute bottom-8 left-8 text-white max-w-md">
+        <h3 className="text-2xl font-light tracking-tight">
+          {title}
+        </h3>
+
+        <p className="text-sm text-gray-300 mt-2 leading-relaxed">
+          {subtitle}
+        </p>
+
+        <div className="flex items-center gap-6 mt-6">
+          <button className="bg-blue-600 hover:bg-blue-700 transition px-6 py-2 text-sm font-medium">
+            Explore service
+          </button>
+
+          <button className="text-sm border-b border-white/50 hover:border-white">
+            Learn more
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
