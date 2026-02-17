@@ -59,7 +59,7 @@ const ServicesSection = () => {
             <motion.div
               key={index}
               onMouseEnter={() => setActive(index)}
-              className="relative rounded-2xl overflow-hidden cursor-pointer flex items-end transition-all duration-500"
+              className="relative  overflow-hidden cursor-pointer flex items-end transition-all duration-500"
               animate={{
                 flex: isActive ? 3 : 1,
               }}

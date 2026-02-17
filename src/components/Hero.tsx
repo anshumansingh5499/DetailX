@@ -37,14 +37,14 @@ const Hero = () => {
 
           <button
             onClick={() => setOpen(true)}
-            className="px-8 py-3 bg-white text-black rounded-full 
+            className="px-8 py-3 bg-white text-black 
                        hover:bg-white/80 transition duration-300"
           >
             Book Appointment
           </button>
 
           <button
-            className="px-8 py-3 border border-white/50 rounded-full 
+            className="px-8 py-3 border border-white/50 
                        hover:bg-white hover:text-black transition duration-300"
           >
             Explore Services

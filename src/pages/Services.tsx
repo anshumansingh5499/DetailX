@@ -103,7 +103,7 @@ export default function ServicesPage() {
     initial={{ opacity: 0, y: 40 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8 }}
-    className="relative max-w-2xl w-full px-10 py-16 bg-white/5 backdrop-blur-xl rounded-3xl border border-white/10"
+    className="relative max-w-2xl w-full px-10 py-16 bg-white/5 backdrop-blur-xl  border border-white/10"
   >
     <h2 className="text-5xl font-extralight tracking-tight mb-12 text-center">
       Discover Services
@@ -143,7 +143,7 @@ export default function ServicesPage() {
 
     <button
       onClick={handleSearch}
-      className="w-full py-4 bg-white text-black rounded-full tracking-widest uppercase text-sm hover:bg-gray-200 transition-all duration-300"
+      className="w-full py-4 bg-white text-black  tracking-widest uppercase text-sm hover:bg-gray-200 transition-all duration-300"
     >
       View Pricing
     </button>
@@ -165,7 +165,7 @@ export default function ServicesPage() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 60, opacity: 0 }}
               transition={{ duration: 0.4 }}
-              className="bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden"
+              className="bg-white w-full max-w-4xl shadow-2xl overflow-hidden"
             >
               {/* Header */}
               <div className="px-10 py-8 border-b flex justify-between items-start">
@@ -191,7 +191,7 @@ export default function ServicesPage() {
                   (category, index) => (
                     <div
                       key={index}
-                      className="border rounded-2xl overflow-hidden"
+                      className="border  overflow-hidden"
                     >
                       <button
                         onClick={() =>

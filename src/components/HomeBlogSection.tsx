@@ -144,7 +144,7 @@ const HomeBlogSection = () => {
           {blogs.map((blog, i) => (
             <div key={i} className="w-full md:w-1/3 flex-shrink-0 group">
 
-              <div className="relative overflow-hidden rounded-[28px]">
+              <div className="relative overflow-hidden ">
                 <img
                   src={blog.image}
                   alt={blog.title}
@@ -167,7 +167,7 @@ const HomeBlogSection = () => {
 
                 <button
                   onClick={() => setSelectedBlog(blog)}
-                  className="mt-6 px-6 py-2 border border-black/30 rounded-full 
+                  className="mt-6 px-6 py-2 border border-black/30 
                              hover:bg-black hover:text-white transition"
                 >
                   Read More →
@@ -200,7 +200,7 @@ const HomeBlogSection = () => {
               <img
                 src={selectedBlog.image}
                 alt={selectedBlog.title}
-                className="w-full h-[450px] object-cover rounded-[30px]"
+                className="w-full h-[450px] object-cover "
               />
 
               <h1 className="mt-12 text-4xl md:text-5xl font-light">

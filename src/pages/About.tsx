@@ -40,7 +40,7 @@ const About = () => {
             initial={{ opacity: 0, scale: 1.05 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="overflow-hidden rounded-3xl"
+            className="overflow-hidden "
           >
             <img
               src={aboutImg}
@@ -112,7 +112,7 @@ const About = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="border border-gray-200 rounded-2xl py-14"
+              className="border border-gray-200  py-14"
             >
               <h3 className="text-4xl font-medium text-black">
                 {stat.value}
@@ -142,7 +142,7 @@ const About = () => {
         </motion.h2>
 
         <button
-          className="mt-14 px-12 py-4 border border-black rounded-full 
+          className="mt-14 px-12 py-4 border border-black 
                      hover:bg-black hover:text-white transition-all duration-500"
         >
           Book Your Experience

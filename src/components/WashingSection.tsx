@@ -68,7 +68,7 @@ const WashingSection = () => {
               </p>
             </div>
 
-            <button className="px-10 py-4 border border-black rounded-full 
+            <button className="px-10 py-4 border border-black 
                                hover:bg-black hover:text-white 
                                transition-all duration-500 w-fit">
               Schedule Appointment
@@ -85,12 +85,12 @@ const WashingSection = () => {
           viewport={{ once: true }}
           className="relative"
         >
-          <div className="absolute -top-10 -left-10 w-full h-full border border-neutral-200 rounded-3xl" />
+          <div className="absolute -top-10 -left-10 w-full h-full border border-neutral-200 " />
 
           <img
             src={washingImg}
             alt="Professional Car Washing"
-            className="relative w-full h-[650px] object-cover rounded-3xl shadow-xl"
+            className="relative w-full h-[650px] object-cover  shadow-xl"
           />
         </motion.div>
 
