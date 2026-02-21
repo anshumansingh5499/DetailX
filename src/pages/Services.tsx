@@ -22,18 +22,11 @@ type PricingCategory =
 
 const luxuryBrands: CarBrand[] = ["BMW", "Audi", "Mercedes"];
 const premiumBrands: CarBrand[] = ["Toyota", "Honda", "Volkswagen"];
-const standardBrands: CarBrand[] = [
-  "Hyundai",
-  "Tata",
-  "Mahindra",
-  "Kia",
-];
 
 const getMultiplier = (brand: CarBrand | ""): number => {
   if (!brand) return 1;
   if (luxuryBrands.includes(brand)) return 1.5;
   if (premiumBrands.includes(brand)) return 1.2;
-  if (standardBrands.includes(brand)) return 1;
   return 1;
 };
 
@@ -66,145 +59,136 @@ export default function ServicesPage() {
   const [company, setCompany] = useState<CarBrand | "">("");
   const [model, setModel] = useState<string>("");
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [activeAccordion, setActiveAccordion] = useState<number | null>(null);
+  const [activeAccordion, setActiveAccordion] = useState<number | null>(0);
 
   const companies = Object.keys(carData) as CarBrand[];
-
   const multiplier = getMultiplier(company);
-
-  const selectedModels =
-    company !== "" ? carData[company] : [];
+  const selectedModels = company !== "" ? carData[company] : [];
 
   const handleSearch = () => {
-    if (company && model) {
-      setOpenModal(true);
-    }
+    if (company && model) setOpenModal(true);
   };
 
   return (
     <>
       <Navbar />
 
-      {/* ================= FIND SERVICES ================= */}
-    <section
-  className="relative min-h-screen flex items-center justify-center bg-black text-white overflow-hidden"
->
-  {/* Background Image */}
-  <div
-    className="absolute inset-0 bg-cover bg-center scale-105"
-    style={{ backgroundImage: `url(${bgImage})` }}
-  />
+      {/* ================= HERO SELECT ================= */}
+      <section className="relative min-h-screen flex items-center justify-center bg-[#071326] text-white overflow-hidden">
 
-  {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+        {/* Background */}
+        <div
+          className="absolute inset-0 bg-cover bg-center scale-105 opacity-20"
+          style={{ backgroundImage: `url(${bgImage})` }}
+        />
 
-  {/* Content */}
-  <motion.div
-    initial={{ opacity: 0, y: 40 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8 }}
-    className="relative max-w-2xl w-full px-10 py-16 bg-white/5 backdrop-blur-xl  border border-white/10"
-  >
-    <h2 className="text-5xl font-extralight tracking-tight mb-12 text-center">
-      Discover Services
-    </h2>
+        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/10 via-transparent to-blue-500/10 blur-3xl" />
 
-    {/* Company Select */}
-    <select
-      className="w-full mb-6 px-6 py-4 bg-transparent border-b border-white/20 focus:outline-none text-lg"
-      value={company}
-      onChange={(e) => {
-        setCompany(e.target.value as CarBrand);
-        setModel("");
-      }}
-    >
-      <option value="">Select Brand</option>
-      {companies.map((comp) => (
-        <option key={comp} value={comp} className="text-black">
-          {comp}
-        </option>
-      ))}
-    </select>
+        {/* Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative max-w-xl w-full px-10 py-16"
+        >
+          <h2 className="text-5xl font-light tracking-tight mb-14 text-center">
+            Configure Your Vehicle
+          </h2>
 
-    {/* Model Select */}
-    <select
-      className="w-full mb-10 px-6 py-4 bg-transparent border-b border-white/20 focus:outline-none text-lg"
-      value={model}
-      disabled={!company}
-      onChange={(e) => setModel(e.target.value)}
-    >
-      <option value="">Select Model</option>
-      {selectedModels.map((m, i) => (
-        <option key={i} value={m} className="text-black">
-          {m}
-        </option>
-      ))}
-    </select>
+          {/* Brand */}
+          <select
+            className="w-full mb-8 px-6 py-4 bg-transparent border-b border-white/20 focus:outline-none text-lg"
+            value={company}
+            onChange={(e) => {
+              setCompany(e.target.value as CarBrand);
+              setModel("");
+            }}
+          >
+            <option value="">Select Brand</option>
+            {companies.map((comp) => (
+              <option key={comp} value={comp} className="text-black">
+                {comp}
+              </option>
+            ))}
+          </select>
 
-    <button
-      onClick={handleSearch}
-      className="w-full py-4 bg-white text-black  tracking-widest uppercase text-sm hover:bg-gray-200 transition-all duration-300"
-    >
-      View Pricing
-    </button>
-  </motion.div>
-</section>
+          {/* Model */}
+          <select
+            className="w-full mb-12 px-6 py-4 bg-transparent border-b border-white/20 focus:outline-none text-lg"
+            value={model}
+            disabled={!company}
+            onChange={(e) => setModel(e.target.value)}
+          >
+            <option value="">Select Model</option>
+            {selectedModels.map((m, i) => (
+              <option key={i} value={m} className="text-black">
+                {m}
+              </option>
+            ))}
+          </select>
 
+          <button
+            onClick={handleSearch}
+            className="w-full py-4 border border-cyan-400 text-cyan-400
+                       hover:bg-cyan-400 hover:text-black transition duration-300"
+          >
+            View Pricing
+          </button>
+        </motion.div>
+      </section>
 
       {/* ================= MODAL ================= */}
       <AnimatePresence>
         {openModal && (
           <motion.div
-            className="fixed inset-0 bg-black/40 backdrop-blur-md flex justify-center items-center z-50 p-6"
+            className="fixed inset-0 bg-black/70 backdrop-blur-md flex justify-center items-center z-50 p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              initial={{ y: 60, opacity: 0 }}
+              initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 60, opacity: 0 }}
+              exit={{ y: 40, opacity: 0 }}
               transition={{ duration: 0.4 }}
-              className="bg-white w-full max-w-4xl shadow-2xl overflow-hidden"
+              className="bg-[#050b16] text-white w-full max-w-4xl border border-white/10 shadow-2xl"
             >
               {/* Header */}
-              <div className="px-10 py-8 border-b flex justify-between items-start">
+              <div className="px-12 py-10 border-b border-white/10 flex justify-between items-start">
                 <div>
                   <h3 className="text-3xl font-light">
                     {company} {model}
                   </h3>
-                  <p className="text-gray-500 mt-1">
-                    All prices inclusive of taxes
+                  <p className="text-gray-400 mt-2">
+                    Premium Pricing Overview
                   </p>
                 </div>
                 <button
                   onClick={() => setOpenModal(false)}
-                  className="text-2xl text-gray-500 hover:text-black"
+                  className="text-2xl text-gray-500 hover:text-white"
                 >
                   ✕
                 </button>
               </div>
 
               {/* Accordion */}
-              <div className="p-10 space-y-6 max-h-[70vh] overflow-y-auto">
+              <div className="px-12 py-12 space-y-6 max-h-[65vh] overflow-y-auto">
+
                 {(Object.keys(basePricing) as PricingCategory[]).map(
                   (category, index) => (
-                    <div
-                      key={index}
-                      className="border  overflow-hidden"
-                    >
+                    <div key={index} className="border-b border-white/10 pb-4">
                       <button
                         onClick={() =>
                           setActiveAccordion(
                             activeAccordion === index ? null : index
                           )
                         }
-                        className="w-full flex justify-between items-center px-8 py-6 bg-gray-50 hover:bg-gray-100 transition"
+                        className="w-full flex justify-between items-center py-6 text-left"
                       >
-                        <span className="text-xl font-medium">
+                        <span className="text-2xl font-light">
                           {category}
                         </span>
-                        <span className="text-2xl">
+                        <span className="text-xl text-cyan-400">
                           {activeAccordion === index ? "−" : "+"}
                         </span>
                       </button>
@@ -215,17 +199,17 @@ export default function ServicesPage() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="bg-white"
+                            className="space-y-4 pb-6"
                           >
                             {basePricing[category].map((item, i) => (
                               <div
                                 key={i}
-                                className="flex justify-between items-center px-8 py-5 border-t hover:bg-gray-50 transition"
+                                className="flex justify-between items-center py-3"
                               >
-                                <span className="text-gray-700">
+                                <span className="text-gray-300">
                                   {item.name}
                                 </span>
-                                <span className="text-lg font-semibold">
+                                <span className="text-lg font-light text-cyan-400">
                                   ₹
                                   {Math.round(
                                     item.price * multiplier
@@ -239,6 +223,7 @@ export default function ServicesPage() {
                     </div>
                   )
                 )}
+
               </div>
             </motion.div>
           </motion.div>

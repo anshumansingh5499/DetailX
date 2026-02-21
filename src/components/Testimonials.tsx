@@ -21,10 +21,10 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   return (
-    <section className="relative bg-[#f8f8f8] text-black py-40 px-6 md:px-16 overflow-hidden">
+    <section className="relative bg-[#071326] text-white py-36 px-6 md:px-16 overflow-hidden">
 
-      {/* Subtle Background Accent */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-black/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Subtle Cyan Glow */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/10 via-transparent to-blue-500/10 blur-3xl pointer-events-none" />
 
       {/* Heading */}
       <motion.div
@@ -32,14 +32,16 @@ const TestimonialsSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="relative max-w-4xl mx-auto text-center mb-28"
+        className="relative max-w-4xl mx-auto text-center mb-24"
       >
-        <p className="uppercase tracking-[0.5em] text-xs text-black/40 mb-6">
+        <p className="uppercase tracking-[0.6em] text-xs text-cyan-400 mb-6">
           Client Experience
         </p>
 
         <h2 className="text-4xl md:text-6xl font-light tracking-tight leading-tight">
-          What Our Clients Say
+          Trusted by
+          <br />
+          Performance Owners.
         </h2>
       </motion.div>
 
@@ -51,17 +53,17 @@ const TestimonialsSection = () => {
             key={index}
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: index * 0.2 }}
+            transition={{ duration: 0.8, delay: index * 0.15 }}
             viewport={{ once: true }}
             className={`relative p-10 transition-all duration-500 ${
               item.highlight
-                ? "bg-white shadow-xl scale-105 z-10"
-                : "bg-transparent"
+                ? "bg-white/5 backdrop-blur-md border border-cyan-400/30 scale-105"
+                : "border border-white/10"
             }`}
           >
 
             {/* Quote Mark */}
-            <div className="text-6xl text-black/10 mb-6 leading-none">
+            <div className="text-6xl text-cyan-400/20 mb-6 leading-none">
               “
             </div>
 
@@ -69,22 +71,22 @@ const TestimonialsSection = () => {
             <p
               className={`leading-relaxed ${
                 item.highlight
-                  ? "text-xl md:text-2xl font-light text-black"
-                  : "text-base text-black/60"
+                  ? "text-xl md:text-2xl font-light text-white"
+                  : "text-base text-gray-400"
               }`}
             >
               {item.text}
             </p>
 
             {/* Divider */}
-            <div className="w-10 h-[1px] bg-black/20 my-10" />
+            <div className="w-10 h-[1px] bg-cyan-400/40 my-10" />
 
             {/* Name + Role */}
             <div>
-              <h4 className="text-base font-medium tracking-wide">
+              <h4 className="text-base font-medium tracking-wide text-white">
                 {item.name}
               </h4>
-              <p className="text-sm text-black/40 mt-1">
+              <p className="text-sm text-gray-500 mt-1">
                 {item.role}
               </p>
             </div>
@@ -96,9 +98,9 @@ const TestimonialsSection = () => {
       {/* Bottom CTA */}
       <div className="relative text-center mt-28">
         <button
-          className="px-12 py-3 border border-black/30 
-                     text-sm tracking-[0.3em] 
-                     hover:bg-black hover:text-white 
+          className="px-12 py-3 border border-cyan-400 
+                     text-sm tracking-[0.4em] text-cyan-400
+                     hover:bg-cyan-400 hover:text-black
                      transition-all duration-500"
         >
           VIEW ALL TESTIMONIALS

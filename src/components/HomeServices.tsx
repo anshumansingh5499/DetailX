@@ -1,175 +1,188 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import {  AnimatePresence } from "framer-motion";
+import {
+  fourWheelerWashing,
+  fourWheelerDetailing,
+  twoWheelerServices,
+  type FourWheelerService,
+  type TwoWheelerService,
+  type Size,
+} from "../data/servicesData";
+import BookingModal from "./BookingModal";
 
-import washingImg from "../assets/washing.jpg";
-import coatingImg from "../assets/ceramic.jpg";
-import ppfImg from "../assets/detailing.jpg";
-import addonImg from "../assets/wheel.jpg";
+type Category = "4W Washing" | "4W Detailing" | "2W Services";
 
-type Category = "Washing" | "Coating" | "PPF" | "Add-On Services";
+const sizes: Size[] = ["XS", "Small", "Medium", "Large", "XL"];
 
-const servicesData: Record<
-  Category,
-  {
-    image: string;
-    items: { title: string; desc: string; price: string }[];
-  }
-> = {
-  Washing: {
-    image: washingImg,
-    items: [
-      {
-        title: "Top Wash",
-        desc: "Exterior foam cleanse with gloss finish.",
-        price: "₹ 300–500",
-      },
-      {
-        title: "Premium Wash",
-        desc: "Complete wash with interior refresh.",
-        price: "₹ 600–1000",
-      },
-    ],
-  },
-  Coating: {
-    image: coatingImg,
-    items: [
-      {
-        title: "Ceramic Coating",
-        desc: "Advanced nano-ceramic paint protection.",
-        price: "₹ 18,000",
-      },
-      {
-        title: "Graphene Coating",
-        desc: "Ultra hydrophobic long-term surface shield.",
-        price: "₹ 25,000",
-      },
-    ],
-  },
-  PPF: {
-    image: ppfImg,
-    items: [
-      {
-        title: "Partial PPF",
-        desc: "Protection for high-impact areas.",
-        price: "₹ 35,000",
-      },
-      {
-        title: "Full Body PPF",
-        desc: "Complete paint protection coverage.",
-        price: "₹ 1,20,000",
-      },
-    ],
-  },
-  "Add-On Services": {
-    image: addonImg,
-    items: [
-      {
-        title: "Engine Cleaning",
-        desc: "Safe degreasing & engine bay refinement.",
-        price: "₹ 1,200",
-      },
-      {
-        title: "Headlight Restoration",
-        desc: "Clarity restoration & UV protection.",
-        price: "₹ 1,500",
-      },
-    ],
-  },
-};
+/* =========================
+   TYPE GUARDS (IMPORTANT)
+========================= */
+function hasPrices(
+  service: FourWheelerService | TwoWheelerService
+): service is FourWheelerService {
+  return (service as FourWheelerService).prices !== undefined;
+}
 
-export default function PorscheServices() {
-  const [active, setActive] = useState<Category>("Washing");
+function hasSinglePrice(
+  service: FourWheelerService | TwoWheelerService
+): service is TwoWheelerService {
+  return (service as TwoWheelerService).price !== undefined;
+}
+
+function hasPriceRange(
+  service: FourWheelerService | TwoWheelerService
+): service is TwoWheelerService {
+  return (service as TwoWheelerService).priceRange !== undefined;
+}
+
+export default function PorscheConfigurator() {
+  const [activeCategory, setActiveCategory] =
+    useState<Category>("4W Washing");
+
+  const [activeService, setActiveService] =
+    useState<FourWheelerService | TwoWheelerService | null>(null);
+
+  const [selectedSize, setSelectedSize] = useState<Size>("Small");
+  const [open, setOpen] = useState(false);
+
+  const getServices = (): (FourWheelerService | TwoWheelerService)[] => {
+    if (activeCategory === "4W Washing") return fourWheelerWashing;
+    if (activeCategory === "4W Detailing") return fourWheelerDetailing;
+    return twoWheelerServices;
+  };
+
+  /* AUTO SELECT FIRST SERVICE */
+  useEffect(() => {
+    const services = getServices();
+    if (services.length > 0) {
+      const first = services[0];
+      setActiveService(first);
+
+      if (hasPrices(first)) {
+        const firstSize = sizes.find((size) => first.prices[size]);
+        if (firstSize) setSelectedSize(firstSize);
+      }
+    }
+  }, [activeCategory]);
 
   return (
-    <section className="bg-black text-white min-h-screen flex">
+    <>
+      <section className="relative min-h-screen bg-[#050b16] text-white flex items-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#050b16] via-[#0a1c33] to-[#040912]" />
 
-      {/* LEFT — Cinematic Image */}
-      <div className="hidden lg:block w-1/2 relative overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={servicesData[active].image}
-            src={servicesData[active].image}
-            alt={active}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        </AnimatePresence>
+        <div className="relative z-10 max-w-7xl mx-auto w-full px-12 py-28 grid grid-cols-3 gap-24">
 
-        {/* Dark Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent" />
-      </div>
+          {/* LEFT */}
+          <div className="flex flex-col justify-center space-y-14">
+            <p className="uppercase text-xs tracking-[0.7em] text-gray-500">
+              Configure
+            </p>
 
-      {/* RIGHT — Content */}
-      <div className="w-full lg:w-1/2 px-8 md:px-20 py-24 flex flex-col justify-center">
+            {( ["4W Washing", "4W Detailing", "2W Services"] as Category[] ).map(
+              (cat) => {
+                const active = activeCategory === cat;
 
-        {/* Section Label */}
-        <p className="uppercase tracking-[0.5em] text-xs text-gray-500 mb-16">
-          Our Services
-        </p>
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`text-left text-3xl font-light transition ${
+                      active
+                        ? "text-white"
+                        : "text-gray-600 hover:text-white"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                );
+              }
+            )}
+          </div>
 
-        {/* Large Category Navigation */}
-        <div className="space-y-8 mb-24">
-          {(Object.keys(servicesData) as Category[]).map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActive(cat)}
-              className="block text-left group"
-            >
-              <motion.h2
-                className={`text-5xl md:text-6xl font-extralight tracking-tight transition-all duration-500 ${
-                  active === cat
-                    ? "text-white"
-                    : "text-gray-600 group-hover:text-gray-300"
-                }`}
-              >
-                {cat}
-              </motion.h2>
+          {/* CENTER */}
+          <div className="flex flex-col justify-center space-y-10">
+            {getServices().map((service) => {
+              const active = activeService?.title === service.title;
 
-              {active === cat && (
-                <motion.div
-                  layoutId="line"
-                  className="h-[1px] bg-white mt-4 w-24"
-                />
-              )}
-            </button>
-          ))}
-        </div>
+              return (
+                <button
+                  key={service.title}
+                  onClick={() => setActiveService(service)}
+                  className={`text-left text-4xl font-light transition ${
+                    active
+                      ? "text-white"
+                      : "text-gray-700 hover:text-white"
+                  }`}
+                >
+                  {service.title}
+                </button>
+              );
+            })}
+          </div>
 
-        {/* Service Details */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-16"
-          >
-            {servicesData[active].items.map((item, index) => (
-              <div
-                key={index}
-                className="flex justify-between border-t border-gray-800 pt-8"
-              >
-                <div>
-                  <h3 className="text-2xl font-light tracking-wide">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-500 mt-3 max-w-sm leading-relaxed">
-                    {item.desc}
-                  </p>
+          {/* RIGHT */}
+          <div className="flex items-center justify-center">
+            {activeService && (
+              <div className="text-center">
+
+                {/* Size Selector */}
+                {hasPrices(activeService) && (
+                  <div className="flex justify-center gap-8 mb-12">
+                    {sizes.map((size) =>
+                      activeService.prices[size] ? (
+                        <button
+                          key={size}
+                          onClick={() => setSelectedSize(size)}
+                          className={`text-sm ${
+                            selectedSize === size
+                              ? "text-white border-b border-white"
+                              : "text-gray-600"
+                          }`}
+                        >
+                          {size}
+                        </button>
+                      ) : null
+                    )}
+                  </div>
+                )}
+
+                {/* PRICE DISPLAY */}
+                <div className="mb-16">
+                  {hasPrices(activeService) && (
+                    <p className="text-8xl font-extralight">
+                      ₹{activeService.prices[selectedSize]}
+                    </p>
+                  )}
+
+                  {hasSinglePrice(activeService) && (
+                    <p className="text-8xl font-extralight">
+                      ₹{activeService.price}
+                    </p>
+                  )}
+
+                  {hasPriceRange(activeService) && (
+                    <p className="text-7xl font-extralight">
+                      ₹{activeService.priceRange}
+                    </p>
+                  )}
                 </div>
 
-                <span className="text-lg font-light tracking-wider">
-                  {item.price}
-                </span>
+                <button
+                  onClick={() => setOpen(true)}
+                  className="px-14 py-4 border border-white hover:bg-white hover:text-black transition"
+                >
+                  Book Appointment
+                </button>
               </div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </section>
+            )}
+          </div>
+
+        </div>
+      </section>
+
+      <AnimatePresence>
+        {open && <BookingModal close={() => setOpen(false)} />}
+      </AnimatePresence>
+    </>
   );
 }

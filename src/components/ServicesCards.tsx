@@ -36,22 +36,27 @@ const ServicesSection = () => {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="bg-black py-24 px-6 md:px-16 text-white">
-      
+    <section className="relative bg-[#071326] text-white py-28 px-6 md:px-16 overflow-hidden">
+
+      {/* Subtle Brand Glow */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/10 via-transparent to-blue-500/10 blur-3xl pointer-events-none" />
+
       {/* Heading */}
-      <div className="max-w-7xl mx-auto mb-16">
-        <p className="uppercase tracking-[0.4em] text-xs text-neutral-400 mb-4">
+      <div className="max-w-7xl mx-auto mb-20 relative z-10">
+        <p className="uppercase tracking-[0.5em] text-xs text-cyan-400 mb-6">
           Our Expertise
         </p>
 
-        <h2 className="text-4xl md:text-6xl font-light leading-tight">
+        <h2 className="text-4xl md:text-6xl font-light leading-tight tracking-tight">
           Precision Detailing.
-          <br /> Crafted for Excellence.
+          <br />
+          <span className="text-white">Crafted for Excellence.</span>
         </h2>
       </div>
 
       {/* Expanding Cards */}
-      <div className="flex h-[500px] gap-4 max-w-7xl mx-auto">
+      <div className="flex flex-col md:flex-row h-auto md:h-[520px] gap-4 max-w-7xl mx-auto relative z-10">
+
         {services.map((service, index) => {
           const isActive = active === index;
 
@@ -59,50 +64,58 @@ const ServicesSection = () => {
             <motion.div
               key={index}
               onMouseEnter={() => setActive(index)}
-              className="relative  overflow-hidden cursor-pointer flex items-end transition-all duration-500"
+              onClick={() => setActive(index)}
+              className="relative overflow-hidden cursor-pointer flex items-end transition-all duration-700 rounded-xl"
               animate={{
                 flex: isActive ? 3 : 1,
               }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
             >
-              {/* Background Image */}
-              <img
+              {/* Background Image with Zoom */}
+              <motion.img
                 src={service.image}
                 alt={service.title}
                 className="absolute inset-0 w-full h-full object-cover"
+                animate={{
+                  scale: isActive ? 1.05 : 1,
+                }}
+                transition={{ duration: 0.8 }}
               />
 
-              {/* Dark Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
               {/* Content */}
-              <div className="relative p-8 z-10">
+              <div className="relative p-8 z-10 w-full">
                 <h3 className="text-2xl md:text-3xl font-light tracking-wide">
                   {service.title}
                 </h3>
 
-                {isActive && (
-                  <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="mt-4 text-sm text-neutral-300 max-w-sm"
-                  >
+                <motion.div
+                  initial={false}
+                  animate={{
+                    opacity: isActive ? 1 : 0,
+                    y: isActive ? 0 : 20,
+                  }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <p className="mt-4 text-sm text-gray-300 max-w-sm">
                     {service.description}
-                  </motion.p>
-                )}
+                  </p>
 
-                {isActive && (
-                  <motion.button
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="mt-6 text-sm uppercase tracking-widest border-b border-white pb-1 hover:opacity-70 transition"
-                  >
+                  <button className="mt-6 text-xs uppercase tracking-[0.3em] border-b border-white pb-1 hover:opacity-70 transition">
                     Discover →
-                  </motion.button>
-                )}
+                  </button>
+                </motion.div>
               </div>
+
+              {/* Active Indicator Line */}
+              {isActive && (
+                <motion.div
+                  layoutId="activeIndicator"
+                  className="absolute bottom-0 left-0 w-full h-[2px] bg-cyan-400"
+                />
+              )}
             </motion.div>
           );
         })}

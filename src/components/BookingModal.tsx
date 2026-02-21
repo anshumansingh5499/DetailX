@@ -14,7 +14,7 @@ const BookingModal = ({ close }: Props) => {
   });
 
   const handleSubmit = () => {
-    const ownerNumber = "917080216257";
+    const ownerNumber = "919980889181";
 
     const message = `New Booking Request:
 Name: ${form.name}

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import BookingModal from "../components/BookingModal";
-import logo from "../../public/image-removebg-preview.png";
+import logo from "../assets/washlogo-removebg-preview.png";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -11,10 +11,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
 
   const location = useLocation();
-
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +26,6 @@ const Navbar = () => {
     { name: "Home", path: "/" },
     { name: "Services", path: "/services" },
     { name: "About", path: "/about" },
-
     { name: "Blogs", path: "/blogs" },
   ];
 
@@ -37,41 +33,43 @@ const Navbar = () => {
     <>
       {/* ================= NAVBAR ================= */}
       <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 backdrop-blur-xl ${
-          scrolled ? "bg-black/70 shadow-lg" : "bg-black/50"
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+          scrolled
+            ? "bg-white shadow-md"
+            : "bg-white"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-5 relative flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-1 flex items-center justify-between">
 
-          {/* LEFT: Logo */}
-          <Link to="/" className="flex items-center z-20">
+          {/* LEFT — Logo */}
+          <Link to="/" className="flex items-center">
             <img
               src={logo}
-              alt="DetailXAuto Logo"
-              className="h-8 md:h-10 w-auto object-contain"
+              alt="Salugara Car Wash"
+              className="h-14 md:h-28 w-auto object-contain"
             />
           </Link>
 
-          {/* CENTER: Desktop Menu */}
-          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-12">
-            {navItems.map((item, index) => {
+          {/* CENTER — Desktop Menu */}
+          <div className="hidden md:flex items-center gap-12">
+            {navItems.map((item) => {
               const active = isActive(item.path);
 
               return (
                 <Link
-                  key={index}
+                  key={item.name}
                   to={item.path}
                   className={`relative text-sm tracking-wide transition duration-300 group ${
                     active
-                      ? "text-white"
-                      : "text-white/70 hover:text-white"
+                      ? "text-black"
+                      : "text-black/60 hover:text-black"
                   }`}
                 >
                   {item.name}
 
                   {/* Underline */}
                   <span
-                    className={`absolute left-0 -bottom-1 h-[1.5px] bg-white transition-all duration-300 ${
+                    className={`absolute left-0 -bottom-1 h-[1.5px] bg-black transition-all duration-300 ${
                       active ? "w-full" : "w-0 group-hover:w-full"
                     }`}
                   />
@@ -80,12 +78,12 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* RIGHT: Button */}
+          {/* RIGHT — Button */}
           <div className="hidden md:flex">
             <button
               onClick={() => setOpen(true)}
-              className="px-6 py-2 border border-white/40 
-                         text-white hover:bg-white hover:text-black 
+              className="px-6 py-2 border border-black/30 text-black 
+                         hover:bg-black hover:text-white 
                          transition duration-300"
             >
               Book Now
@@ -95,13 +93,11 @@ const Navbar = () => {
           {/* MOBILE BUTTON */}
           <button
             onClick={() => setMobileMenu(!mobileMenu)}
-            className="md:hidden w-10 h-10 border border-white/40 
-                       rounded-full flex items-center justify-center 
-                       text-white z-50"
+            className="md:hidden w-10 h-10 border border-black/30 
+                       rounded-full flex items-center justify-center text-black"
           >
             {mobileMenu ? <X size={20} /> : <Menu size={20} />}
           </button>
-
         </div>
       </nav>
 
@@ -113,15 +109,15 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black text-white flex flex-col 
+            className="fixed inset-0 bg-white text-black flex flex-col 
                        items-center justify-center gap-12 text-2xl z-40"
           >
-            {navItems.map((item, index) => {
+            {navItems.map((item) => {
               const active = isActive(item.path);
 
               return (
                 <Link
-                  key={index}
+                  key={item.name}
                   to={item.path}
                   onClick={() => setMobileMenu(false)}
                   className={`transition ${
@@ -140,8 +136,8 @@ const Navbar = () => {
                 setOpen(true);
                 setMobileMenu(false);
               }}
-              className="mt-6 px-8 py-3 border border-white 
-                         hover:bg-white hover:text-black transition"
+              className="mt-6 px-8 py-3 border border-black 
+                         hover:bg-black hover:text-white transition"
             >
               Book Now
             </button>
@@ -150,7 +146,9 @@ const Navbar = () => {
       </AnimatePresence>
 
       {/* ================= BOOKING MODAL ================= */}
-      {open && <BookingModal close={() => setOpen(false)} />}
+      <AnimatePresence>
+        {open && <BookingModal close={() => setOpen(false)} />}
+      </AnimatePresence>
     </>
   );
 };

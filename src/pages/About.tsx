@@ -8,64 +8,72 @@ const About = () => {
     <>
       <Navbar />
 
-      {/* ================= HERO (MINIMAL) ================= */}
-      <section className="bg-white pt-40 pb-32 px-6 md:px-20">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+      {/* ================= HERO ================= */}
+      <section className="relative bg-[#071326] text-white pt-40 pb-36 px-6 md:px-20 overflow-hidden">
 
-          {/* Left Text */}
+        {/* Subtle Brand Glow */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/10 via-transparent to-blue-500/10 blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center">
+
+          {/* LEFT CONTENT */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="uppercase tracking-[0.4em] text-xs text-gray-400 mb-6">
+            <p className="uppercase tracking-[0.6em] text-xs text-cyan-400 mb-8">
               About Us
             </p>
 
-            <h1 className="text-5xl md:text-7xl font-light leading-[1.05] text-black">
+            <h1 className="text-5xl md:text-7xl font-light leading-[1.05] tracking-tight">
               We Build
               <br />
-              <span className="font-medium">Perfection.</span>
+              <span className="font-semibold">Perfection.</span>
             </h1>
 
-            <p className="mt-8 text-gray-600 leading-relaxed max-w-lg">
+            <p className="mt-10 text-gray-300 leading-relaxed max-w-xl text-lg">
               Since 2015, we have focused on one philosophy — precision.
               Every vehicle is treated with obsessive attention, advanced
-              ceramic science, and craftsmanship that defines modern luxury.
+              ceramic science, and craftsmanship engineered for modern
+              luxury performance vehicles.
             </p>
           </motion.div>
 
-          {/* Right Image */}
+          {/* RIGHT IMAGE */}
           <motion.div
-            initial={{ opacity: 0, scale: 1.05 }}
+            initial={{ opacity: 0, scale: 1.04 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1 }}
-            className="overflow-hidden "
+            className="relative"
           >
             <img
               src={aboutImg}
               alt="About us"
-              className="w-full h-[480px] object-cover"
+              className="w-full h-[520px] object-cover shadow-2xl"
             />
+
+            {/* Bottom Glow */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-16 bg-cyan-400/20 blur-2xl rounded-full" />
           </motion.div>
 
         </div>
       </section>
 
-      {/* ================= VALUES / DIFFERENCE ================= */}
-      <section className="bg-neutral-50 py-28 px-6 md:px-20">
+      {/* ================= VALUES ================= */}
+      <section className="bg-[#050b16] text-white py-36 px-6 md:px-20">
         <div className="max-w-6xl mx-auto">
 
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="text-4xl md:text-5xl font-light text-black mb-20"
+            className="text-4xl md:text-6xl font-light mb-24"
           >
-            What Makes Us Different
+            Engineered Difference.
           </motion.h2>
 
-          <div className="grid md:grid-cols-3 gap-16">
+          <div className="grid md:grid-cols-3 gap-20">
             {[
               {
                 title: "Ceramic Engineering",
@@ -73,23 +81,23 @@ const About = () => {
               },
               {
                 title: "Paint Precision",
-                text: "Multi-stage paint correction removes swirl marks and restores deep gloss with microscopic accuracy.",
+                text: "Multi-stage correction removes swirl marks and restores depth with microscopic accuracy.",
               },
               {
                 title: "Interior Craft",
-                text: "Leather conditioning, fabric extraction, and refined interior restoration for a luxury finish.",
+                text: "Leather conditioning, steam extraction, and refined restoration for elevated cabin luxury.",
               },
             ].map((item, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: i * 0.1 }}
+                transition={{ duration: 0.7, delay: i * 0.15 }}
               >
-                <h3 className="text-xl font-medium text-black">
+                <h3 className="text-2xl font-light mb-6">
                   {item.title}
                 </h3>
-                <p className="mt-4 text-gray-600 leading-relaxed text-sm">
+                <p className="text-gray-400 leading-relaxed">
                   {item.text}
                 </p>
               </motion.div>
@@ -98,9 +106,9 @@ const About = () => {
         </div>
       </section>
 
-      {/* ================= STATS (CLEAN) ================= */}
-      <section className="bg-white py-28 px-6 md:px-20">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-12 text-center">
+      {/* ================= STATS ================= */}
+      <section className="bg-[#071326] text-white py-36 px-6 md:px-20">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-20 text-center">
 
           {[
             { value: "12K+", label: "Cars Detailed" },
@@ -111,15 +119,17 @@ const About = () => {
               key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="border border-gray-200  py-14"
+              transition={{ duration: 0.6, delay: i * 0.15 }}
+              className="relative"
             >
-              <h3 className="text-4xl font-medium text-black">
+              <h3 className="text-6xl font-extralight tracking-tight">
                 {stat.value}
               </h3>
-              <p className="mt-3 text-gray-500 text-sm">
+              <p className="mt-4 text-gray-400 tracking-wide">
                 {stat.label}
               </p>
+
+              <div className="mt-6 w-12 h-[2px] bg-cyan-400 mx-auto" />
             </motion.div>
           ))}
 
@@ -127,26 +137,32 @@ const About = () => {
       </section>
 
       {/* ================= STATEMENT CTA ================= */}
-      <section className="bg-neutral-50 py-32 text-center px-6">
+      <section className="relative bg-[#050b16] text-white py-40 text-center px-6 overflow-hidden">
+
+        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/10 via-transparent to-blue-500/10 blur-3xl pointer-events-none" />
+
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl md:text-6xl font-light leading-tight max-w-4xl mx-auto text-black"
+          className="relative text-4xl md:text-6xl font-light leading-tight max-w-4xl mx-auto"
         >
           We Don’t Just Detail Cars.
           <br />
-          <span className="font-medium">
+          <span className="font-semibold">
             We Elevate Them.
           </span>
         </motion.h2>
 
-        <button
-          className="mt-14 px-12 py-4 border border-black 
-                     hover:bg-black hover:text-white transition-all duration-500"
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.96 }}
+          className="relative mt-16 px-14 py-4 border border-cyan-400 
+                     text-cyan-400 hover:bg-cyan-400 hover:text-black 
+                     transition-all duration-500"
         >
           Book Your Experience
-        </button>
+        </motion.button>
       </section>
 
       <Footer />

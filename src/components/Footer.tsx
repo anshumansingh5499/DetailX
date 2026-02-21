@@ -4,7 +4,7 @@ import {
   FaInstagram,
   FaLinkedinIn,
 } from "react-icons/fa";
-import logo from "../../public/image.png";
+import logo from "../assets/washlogo-removebg-preview.png";
 
 const Footer = () => {
   return (
@@ -18,7 +18,7 @@ const Footer = () => {
            <img
     src={logo}
     alt="DetailXAuto Logo"
-    className="h-8 md:h-10 w-auto object-contain"
+    className="h-28 md:h-30 w-auto object-contain"
   />
           <p className="mt-6 text-gray-400 max-w-lg text-lg leading-relaxed">
             Premium automotive detailing studio delivering precision,
@@ -74,8 +74,8 @@ const Footer = () => {
               Contact
             </h4>
             <ul className="space-y-5 text-gray-400">
-              <li>+91 70802 16257</li>
-              <li>Delhi, India</li>
+              <li>+91 9980889181</li>
+              <li>BSF Road, Salugara • Near Cosmos Valley Apartment</li>
               <li>info@detailx.com</li>
             </ul>
           </div>
