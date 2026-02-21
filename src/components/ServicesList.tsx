@@ -76,9 +76,7 @@ export default function ServicesSection() {
   );
 }
 
-/* ============================= */
-/*        CARD COMPONENT         */
-/* ============================= */
+
 
 function ServiceCard({
   title,
@@ -95,7 +93,7 @@ function ServiceCard({
     <motion.div
       whileHover={{ scale: 1.015 }}
       transition={{ duration: 0.4 }}
-      className={`relative overflow-hidden rounded-xl ${className}`}
+      className={`relative overflow-hidden  ${className}`}
     >
       {/* Background Image with Slow Zoom */}
       <motion.img

@@ -65,7 +65,7 @@ const ServicesSection = () => {
               key={index}
               onMouseEnter={() => setActive(index)}
               onClick={() => setActive(index)}
-              className="relative overflow-hidden cursor-pointer flex items-end transition-all duration-700 rounded-xl"
+              className="relative overflow-hidden cursor-pointer flex items-end transition-all duration-700 "
               animate={{
                 flex: isActive ? 3 : 1,
               }}

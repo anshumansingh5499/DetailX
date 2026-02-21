@@ -8,7 +8,7 @@ const Hero = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#071326] text-white">
+    <section className="relative w-full bg-[#050B18] text-white overflow-hidden">
 
       {/* Background Video */}
       <video
@@ -16,119 +16,160 @@ const Hero = () => {
         loop
         muted
         playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-70"
+        className="absolute inset-0 w-full h-full object-cover  "
       >
         <source src={heroVideo} type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/50" />
 
-    
-      <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/10 via-transparent to-blue-500/10 blur-3xl pointer-events-none" />
+      {/* Brand Glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/15 via-transparent to-cyan-400/10 blur-3xl pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-20 pt-32 pb-24">
+      {/* MAIN CONTENT */}
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-6 md:px-20 pt-36 pb-24 min-h-screen">
 
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-end mt-10">
+        {/* Label */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="uppercase tracking-[0.5em] text-[16px] sm:text-xs text-black mb-6 bg-white p-2"
+        >
+          SALUGARA CAR WASH & DETAILING
+        </motion.p>
 
-          <div>
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-[1.2] sm:leading-tight max-w-4xl"
+        >
+          Where Precision Meets
+          <span className="block mt-2 font-semibold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            Automotive Perfection
+          </span>
+        </motion.h1>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
-              className="text-4xl sm:text-5xl md:text-7xl font-light leading-tight tracking-tight"
-            >
-              Elevate Your
-              <span className="block text-cyan-400 font-medium">
-                Car Care Experience.
-              </span>
-            </motion.h1>
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 1 }}
+          className="mt-6 text-gray-400 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed"
+        >
+          Premium ceramic coating, detailing & protection
+          crafted for vehicles that demand excellence.
+        </motion.p>
 
-            <p className="mt-6 text-white/80 text-base md:text-lg max-w-xl leading-relaxed">
-              Professional detailing. Advanced ceramic coating.
-              Underbody protection. Precision finish.
-            </p>
-
-            {/* Buttons */}
-            <div className="mt-10 flex flex-wrap gap-6">
-
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setOpen(true)}
-                className="px-8 py-3 bg-cyan-400 text-black 
-                           hover:bg-cyan-300 transition duration-300"
-              >
-                Book Appointment
-              </motion.button>
-
-              <Link to="/services">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-3 border border-white/50 
-                             hover:bg-white hover:text-black transition duration-300"
-                >
-                  Explore Services
-                </motion.button>
-              </Link>
-
-            </div>
-
-          </div>
-
-          {/* ================= OFFER PANEL ================= */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
-            className="mt-16 lg:mt-0 flex justify-start lg:justify-end"
+        {/* Buttons */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 1 }}
+          className="mt-10 flex flex-col sm:flex-row gap-4 sm:gap-6"
+        >
+          <button
+            onClick={() => setOpen(true)}
+            className="px-8 py-3 bg-gradient-to-r from-blue-500 to-cyan-400 
+                       text-black font-medium hover:opacity-90 transition duration-500"
           >
-            <div className="w-full lg:w-[380px] backdrop-blur-xl bg-white/5 border border-white/10 p-8 lg:p-10 relative">
+            Book Appointment
+          </button>
 
-              {/* Accent Line */}
-              <div className="absolute top-0 left-0 w-full h-[2px] bg-cyan-400/60" />
+          <Link to="/services">
+            <button
+              className="px-8 py-3 border border-blue-400/40 
+                         hover:bg-blue-500/10 transition duration-500"
+            >
+              Explore Services
+            </button>
+          </Link>
+        </motion.div>
 
-              <p className="uppercase text-xs tracking-[0.5em] text-gray-400 mb-6">
-                Exclusive Offer
-              </p>
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
+          className="absolute bottom-6 flex flex-col items-center"
+        >
+          <div className="w-[1px] h-12 bg-gradient-to-b from-blue-400 to-transparent animate-pulse" />
+          <span className="text-[10px] tracking-widest text-gray-500 mt-2">
+            SCROLL
+          </span>
+        </motion.div>
 
-              <h3 className="text-2xl lg:text-3xl font-light leading-snug">
-                10% Lifetime
-                <br />
-                <span className="text-cyan-400 font-medium">
-                  Membership
-                </span>
-              </h3>
-
-              <p className="mt-6 text-gray-400 text-sm leading-relaxed">
-                Enjoy priority service, exclusive discounts,
-                and long-term vehicle protection benefits
-                crafted for premium owners.
-              </p>
-
-              {/* Divider */}
-              <div className="w-full h-px bg-white/10 my-8" />
-
-              <div className="flex justify-between text-sm text-gray-400">
-                <span>Valid For</span>
-                <span className="text-white">Limited Period</span>
-              </div>
-
-              <div className="flex justify-between text-sm text-gray-400 mt-3">
-                <span>Category</span>
-                <span className="text-white">All Services</span>
-              </div>
-
-            </div>
-          </motion.div>
-
-        </div>
       </div>
 
-     
+      {/* OFFER SECTION */}
+      <div className="relative z-10 px-4 sm:px-6 md:px-20 pb-16">
 
-      {/* Booking Modal */}
+        {/* Desktop Glass Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="hidden md:block max-w-5xl mx-auto relative  overflow-hidden"
+        >
+          {/* Animated Border */}
+          <div className="absolute inset-0 rounded-xl border border-blue-400/30 animate-pulse" />
+
+          <div className="backdrop-blur-2xl bg-white/10 px-10 py-8 ">
+
+            <div className="flex justify-between items-center gap-6">
+
+              <div>
+                <p className="text-xs uppercase tracking-widest text-blue-400">
+                  Exclusive Offer
+                </p>
+                <h3 className="text-2xl font-light">
+                  10% Lifetime{" "}
+                  <span className="text-cyan-400 font-semibold">
+                    Membership
+                  </span>
+                </h3>
+              </div>
+
+              <div className="text-gray-300 text-sm">
+                Priority booking • Special discounts • Premium protection
+              </div>
+
+              <button
+                onClick={() => setOpen(true)}
+                className="px-6 py-2 border border-cyan-400 text-cyan-400 
+                           hover:bg-cyan-400 hover:text-black transition duration-500"
+              >
+                Claim Offer
+              </button>
+
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Mobile Compact Offer Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="md:hidden backdrop-blur-2xl bg-white/10 border border-blue-400/30 px-4 py-4 flex justify-between items-center"
+        >
+          <span className="text-sm text-blue-400 font-medium">
+            10% Lifetime Membership
+          </span>
+
+          <button
+            onClick={() => setOpen(true)}
+            className="text-xs border border-cyan-400 text-cyan-400 px-3 py-1 rounded"
+          >
+            Claim
+          </button>
+        </motion.div>
+
+      </div>
+
       {open && <BookingModal close={() => setOpen(false)} />}
     </section>
   );

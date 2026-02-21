@@ -9,9 +9,17 @@ import logo from "../assets/washlogo-removebg-preview.png";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white px-6 md:px-16 pt-32 pb-16">
+    <footer className="relative bg-black text-white px-6 md:px-16 pt-32 pb-16 overflow-hidden">
 
-      <div className="max-w-7xl mx-auto">
+      {/* BIG BACKGROUND WORD */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <h1 className="text-[18vw] md:text-[18vw] font-black tracking-widest text-white/5 select-none text-center leading-none">
+          SALUGARA <br className="hidden md:block" />
+          CAR WASH
+        </h1>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto">
 
         {/* ================= BRAND ================= */}
         <div className="mb-24">
@@ -28,9 +36,9 @@ const Footer = () => {
         </div>
 
         {/* ================= GRID ================= */}
-        <div className="grid md:grid-cols-3 gap-16 border-t border-white/10 pt-16">
+        <div className="grid md:grid-cols-3 gap-16  pt-16">
 
-          {/* Navigation (Same as Navbar) */}
+          {/* Navigation */}
           <div>
             <h4 className="uppercase text-xs tracking-[0.3em] text-gray-500 mb-8">
               Navigation
@@ -93,7 +101,6 @@ const Footer = () => {
               </button>
             </div>
 
-            {/* Social Icons */}
             <div className="flex gap-6 mt-8 text-gray-400">
               {[FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn].map(
                 (Icon, index) => (
