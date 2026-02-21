@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import {  AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import {
   fourWheelerWashing,
   fourWheelerDetailing,
@@ -14,9 +15,6 @@ type Category = "4W Washing" | "4W Detailing" | "2W Services";
 
 const sizes: Size[] = ["XS", "Small", "Medium", "Large", "XL"];
 
-/* =========================
-   TYPE GUARDS (IMPORTANT)
-========================= */
 function hasPrices(
   service: FourWheelerService | TwoWheelerService
 ): service is FourWheelerService {
@@ -43,6 +41,8 @@ export default function PorscheConfigurator() {
     useState<FourWheelerService | TwoWheelerService | null>(null);
 
   const [selectedSize, setSelectedSize] = useState<Size>("Small");
+  const [serviceIndex, setServiceIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
   const [open, setOpen] = useState(false);
 
   const getServices = (): (FourWheelerService | TwoWheelerService)[] => {
@@ -51,83 +51,129 @@ export default function PorscheConfigurator() {
     return twoWheelerServices;
   };
 
-  /* AUTO SELECT FIRST SERVICE */
-  useEffect(() => {
-    const services = getServices();
-    if (services.length > 0) {
-      const first = services[0];
-      setActiveService(first);
+  const services = getServices();
 
-      if (hasPrices(first)) {
-        const firstSize = sizes.find((size) => first.prices[size]);
+  useEffect(() => {
+    setServiceIndex(0);
+  }, [activeCategory]);
+
+  useEffect(() => {
+    if (services.length > 0) {
+      const service = services[serviceIndex];
+      setActiveService(service);
+
+      if (hasPrices(service)) {
+        const firstSize = sizes.find((size) => service.prices[size]);
         if (firstSize) setSelectedSize(firstSize);
       }
     }
-  }, [activeCategory]);
+  }, [serviceIndex, activeCategory]);
+
+  const prevIndex =
+    serviceIndex === 0 ? services.length - 1 : serviceIndex - 1;
+
+  const nextIndex =
+    serviceIndex === services.length - 1 ? 0 : serviceIndex + 1;
+
+  const handlePrev = () => {
+    setDirection(-1);
+    setServiceIndex(prevIndex);
+  };
+
+  const handleNext = () => {
+    setDirection(1);
+    setServiceIndex(nextIndex);
+  };
 
   return (
     <>
-      <section className="relative min-h-screen bg-[#050b16] text-white flex items-center">
+      <section className="relative min-h-screen bg-[#050b16] text-white px-6 md:px-12 py-24">
         <div className="absolute inset-0 bg-gradient-to-br from-[#050b16] via-[#0a1c33] to-[#040912]" />
 
-        <div className="relative z-10 max-w-7xl mx-auto w-full px-12 py-28 grid grid-cols-3 gap-24">
+        <div className="relative z-10 max-w-6xl mx-auto">
 
-          {/* LEFT */}
-          <div className="flex flex-col justify-center space-y-14">
-            <p className="uppercase text-xs tracking-[0.7em] text-gray-500">
-              Configure
-            </p>
-
-            {( ["4W Washing", "4W Detailing", "2W Services"] as Category[] ).map(
-              (cat) => {
-                const active = activeCategory === cat;
-
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => setActiveCategory(cat)}
-                    className={`text-left text-3xl font-light transition ${
-                      active
-                        ? "text-white"
-                        : "text-gray-600 hover:text-white"
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                );
-              }
+          {/* CATEGORY */}
+          <div className="flex gap-10 mb-20">
+            {(["4W Washing", "4W Detailing", "2W Services"] as Category[]).map(
+              (cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`text-lg ${
+                    activeCategory === cat
+                      ? "text-white border-b border-white"
+                      : "text-gray-500 hover:text-white"
+                  }`}
+                >
+                  {cat}
+                </button>
+              )
             )}
           </div>
 
-          {/* CENTER */}
-          <div className="flex flex-col justify-center space-y-10">
-            {getServices().map((service) => {
-              const active = activeService?.title === service.title;
+          {/* ===== NAVIGATION ===== */}
+          <div className="flex items-center justify-between mb-24">
 
-              return (
-                <button
-                  key={service.title}
-                  onClick={() => setActiveService(service)}
-                  className={`text-left text-4xl font-light transition ${
-                    active
-                      ? "text-white"
-                      : "text-gray-700 hover:text-white"
-                  }`}
-                >
-                  {service.title}
-                </button>
-              );
-            })}
+            {/* LEFT SIDE */}
+            <div className="flex items-center gap-6">
+              <button
+                onClick={handlePrev}
+                className="p-2 border border-white/20 hover:border-white transition"
+              >
+                <ChevronLeft size={22} />
+              </button>
+
+              <div
+                onClick={handlePrev}
+                className="cursor-pointer text-gray-500 hover:text-white transition text-lg"
+              >
+                {services[prevIndex]?.title}
+              </div>
+            </div>
+
+            {/* CENTER ACTIVE */}
+            <div className="text-center">
+              <h3 className="text-3xl md:text-4xl font-light tracking-wide">
+                {services[serviceIndex]?.title}
+              </h3>
+            </div>
+
+            {/* RIGHT SIDE */}
+            <div className="flex items-center gap-6">
+              <div
+                onClick={handleNext}
+                className="cursor-pointer text-gray-500 hover:text-white transition text-lg text-right"
+              >
+                {services[nextIndex]?.title}
+              </div>
+
+              <button
+                onClick={handleNext}
+                className="p-2 border border-white/20 hover:border-white transition"
+              >
+                <ChevronRight size={22} />
+              </button>
+            </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="flex items-center justify-center">
+          {/* ===== DETAILS ===== */}
+          <AnimatePresence mode="wait" custom={direction}>
             {activeService && (
-              <div className="text-center">
+              <motion.div
+                key={activeService.title}
+                custom={direction}
+                initial={{ opacity: 0, x: direction > 0 ? 100 : -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
+                transition={{ duration: 0.4 }}
+                className="max-w-3xl"
+              >
+                <h2 className="text-4xl md:text-5xl font-light mb-10">
+                  {activeService.title}
+                </h2>
 
-                {/* Size Selector */}
                 {hasPrices(activeService) && (
-                  <div className="flex justify-center gap-8 mb-12">
+                  <div className="flex gap-8 mb-14 flex-wrap">
                     {sizes.map((size) =>
                       activeService.prices[size] ? (
                         <button
@@ -136,7 +182,7 @@ export default function PorscheConfigurator() {
                           className={`text-sm ${
                             selectedSize === size
                               ? "text-white border-b border-white"
-                              : "text-gray-600"
+                              : "text-gray-500 hover:text-white"
                           }`}
                         >
                           {size}
@@ -146,22 +192,27 @@ export default function PorscheConfigurator() {
                   </div>
                 )}
 
-                {/* PRICE DISPLAY */}
-                <div className="mb-16">
+                <div className="mb-14">
                   {hasPrices(activeService) && (
-                    <p className="text-8xl font-extralight">
+                    <motion.p
+                      key={selectedSize}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-6xl md:text-7xl font-extralight"
+                    >
                       ₹{activeService.prices[selectedSize]}
-                    </p>
+                    </motion.p>
                   )}
 
                   {hasSinglePrice(activeService) && (
-                    <p className="text-8xl font-extralight">
+                    <p className="text-6xl font-extralight">
                       ₹{activeService.price}
                     </p>
                   )}
 
                   {hasPriceRange(activeService) && (
-                    <p className="text-7xl font-extralight">
+                    <p className="text-5xl font-extralight">
                       ₹{activeService.priceRange}
                     </p>
                   )}
@@ -169,14 +220,13 @@ export default function PorscheConfigurator() {
 
                 <button
                   onClick={() => setOpen(true)}
-                  className="px-14 py-4 border border-white hover:bg-white hover:text-black transition"
+                  className="px-12 py-4 border border-white hover:bg-white hover:text-black transition"
                 >
                   Book Appointment
                 </button>
-              </div>
+              </motion.div>
             )}
-          </div>
-
+          </AnimatePresence>
         </div>
       </section>
 

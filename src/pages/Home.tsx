@@ -17,11 +17,11 @@ const Home = () => {
       <Hero />
       <HomeHero/>
 
-            <ServicesAccordion/>
+      <ServicesAccordion/>
+      <HomeServices/>
 
       <ServicesCards />
       <WashingSection />
-      <HomeServices/>
       <HomeBlogSection/>
       <Testimonials />
       <Footer />
