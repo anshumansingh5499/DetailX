@@ -23,7 +23,7 @@ Service: ${form.service}
 Date: ${form.date}`;
 
     const whatsappURL = `https://wa.me/${ownerNumber}?text=${encodeURIComponent(
-      message
+      message,
     )}`;
 
     window.open(whatsappURL, "_blank");
@@ -32,7 +32,6 @@ Date: ${form.date}`;
   return (
     <AnimatePresence>
       <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50">
-
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -60,16 +59,13 @@ Date: ${form.date}`;
 
           {/* Form */}
           <div className="space-y-5">
-
             <input
               type="text"
               placeholder="Full Name"
               className="w-full bg-transparent border-b border-white/20 
                          py-3 text-white placeholder-white/40 
                          focus:outline-none focus:border-white transition"
-              onChange={(e) =>
-                setForm({ ...form, name: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
 
             <input
@@ -78,9 +74,7 @@ Date: ${form.date}`;
               className="w-full bg-transparent border-b border-white/20 
                          py-3 text-white placeholder-white/40 
                          focus:outline-none focus:border-white transition"
-              onChange={(e) =>
-                setForm({ ...form, phone: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
             />
 
             <input
@@ -89,9 +83,7 @@ Date: ${form.date}`;
               className="w-full bg-transparent border-b border-white/20 
                          py-3 text-white placeholder-white/40 
                          focus:outline-none focus:border-white transition"
-              onChange={(e) =>
-                setForm({ ...form, service: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, service: e.target.value })}
             />
 
             <input
@@ -99,14 +91,12 @@ Date: ${form.date}`;
               className="w-full bg-transparent border-b border-white/20 
                          py-3 text-white 
                          focus:outline-none focus:border-white transition"
-              onChange={(e) =>
-                setForm({ ...form, date: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, date: e.target.value })}
             />
 
             <button
               onClick={handleSubmit}
-              className="w-full mt-6 py-4 border border-white 
+              className="w-full mt-6 py-4 border border-white  bg-blue-400
                          rounded-full hover:bg-white hover:text-black 
                          transition-all duration-500 tracking-wide"
             >

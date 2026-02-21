@@ -9,12 +9,14 @@ import ServicesAccordion from "../components/ServicesList";
 import HomeBlogSection from "../components/HomeBlogSection";
 import HomeServices from "../components/HomeServices";
 import HomeHero from "../components/HomeHero";
+import ContactStrip from "../components/ContactStrip";
 
 const Home = () => {
   return (
     <>
       <Navbar />
       <Hero />
+      <ContactStrip/>
       <HomeHero/>
 
       <ServicesAccordion/>
