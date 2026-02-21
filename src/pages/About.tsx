@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import aboutImg from "../assets/hero-car.jpg";
+import aboutImg from "../assets/washlogo-removebg-preview.png";
 
 const About = () => {
   return (
@@ -50,7 +50,7 @@ const About = () => {
             <img
               src={aboutImg}
               alt="About us"
-              className="w-full h-[520px] object-cover shadow-2xl"
+              className="w-full h-[480px] object-cover "
             />
 
             {/* Bottom Glow */}
